@@ -7,6 +7,10 @@ interact with `.data` JSON payloads returned by UDisc's web app endpoints.
 > ⚠️ This library is not affiliated with or endorsed by UDisc. It is provided
 > for educational and research purposes only.
 
+## Blog
+
+This library is based on a multi-part blog series:
+[Reverse Engineering the UDisc API](https://jakegoldsborough.com/blog/2025/reverse-engineering-udisc-api-part-1/)
 
 ## Features
 
