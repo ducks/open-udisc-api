@@ -1,0 +1,174 @@
+components:
+  schemas:
+    Course:
+      type: object
+      required:
+        - _id
+        - name
+        - holeCount
+        - latitude
+        - longitude
+        - locationText
+        - courseId
+        - ratingCount
+        - ratingAverage
+        - country
+        - countryCode
+        - state
+        - city
+        - accessType
+        - availabilityStatus
+        - availabilityType
+        - landType
+        - targetType
+        - targetTypeDescription
+        - shortId
+        - admin1Name
+        - worldRankingsRating
+        - activeTargetTypes
+        - activeTeeTypes
+        - timezone
+        - playFeeType
+        - badgesInfo
+        - conditions
+        - location
+        - layoutConfiguration
+        - distanceFromSelectedPlace
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        headline:
+          type: string
+        longDescription:
+          type: string
+        holeCount:
+          type: integer
+        price:
+          type: string
+        status:
+          type: string
+        website:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        locationText:
+          type: string
+        yearEstablished:
+          type: integer
+        courseId:
+          type: integer
+        ratingCount:
+          type: integer
+        ratingAverage:
+          type: number
+        country:
+          type: string
+        countryCode:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        accessType:
+          type: string
+        availabilityStatus:
+          type: string
+        availabilityType:
+          type: string
+        landType:
+          type: string
+        targetType:
+          type: string
+        targetTypeDescription:
+          type: string
+        hasBathroom:
+          type: boolean
+        hasDrinkingWater:
+          type: boolean
+        propertyType:
+          type: string
+        shortId:
+          type: string
+        admin1Name:
+          type: string
+        worldRankingsRating:
+          type: number
+        activeTargetTypes:
+          type: string
+        activeTeeTypes:
+          type: string
+        timezone:
+          type: string
+        playFeeType:
+          type: string
+        isCartFriendly:
+          type: boolean
+        isDogFriendly:
+          type: boolean
+        limitedAccessReason:
+          type: string
+        isSmartLayoutEnabled:
+          type: boolean
+        difficultyBins:
+          type: string
+        accessTypeDescription:
+          type: string
+        availabilityTypeDescription:
+          type: string
+        byob:
+          type: boolean
+        dedicatedTargets:
+          type: boolean
+        hasAvailabilityRestrictions:
+          type: boolean
+        isLocationPrivate:
+          type: boolean
+        isStrollerFriendly:
+          type: boolean
+        otherFees:
+          type: string
+        underConstruction:
+          type: boolean
+        accessibility:
+          type: string
+        badgesInfo:
+          type: string
+        conditions:
+          type: object
+          additionalProperties:
+            type: number
+        location:
+          type: object
+          additionalProperties:
+            type: number
+        topPhoto:
+          type: object
+          additionalProperties:
+            type: number
+        layoutConfiguration:
+          type: object
+          additionalProperties:
+            type: number
+        contactInfo:
+          type: object
+          additionalProperties:
+            type: number
+        distanceFromSelectedPlace:
+          type: object
+          additionalProperties:
+            type: number
+        isPay:
+          type: boolean
+        accessibilityDescription:
+          type: string
+        isDogFriendlyDescription:
+          type: string
+        isCartFriendlyDescription:
+          type: string
+        isStrollerFriendlyDescription:
+          type: string
+
