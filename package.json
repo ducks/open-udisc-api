@@ -1,7 +1,9 @@
 {
   "name": "open-udisc-api",
   "version": "20250606",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
     "test": "vitest",
     "build": "tsup src/index.ts --format esm --outDir dist --clean",
@@ -9,9 +11,15 @@
     "start": "node dist/index.js",
     "lint": "eslint ."
   },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "type": "module",
   "devDependencies": {
