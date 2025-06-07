@@ -87,6 +87,10 @@ export class UDiscAPI {
 
       const events: Event[] = await res.json();
 
+      events.forEach((event: Event) => {
+        event.slug = `${slugify(event.name)}-${event.shortId}`;
+      });
+
       return events;
     } catch (error) {
       console.log('Fetch failed:', error);

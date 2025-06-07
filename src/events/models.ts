@@ -38,6 +38,8 @@ export interface Event {
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date;
+
+  slug: string;
 }
 
 export interface EventLocation {
