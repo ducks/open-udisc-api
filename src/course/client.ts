@@ -9,9 +9,11 @@ import {
   resolveCourseSchemaMapSchema,
 } from './utils';
 
+import { Course, CourseDetails } from './models';
+
 const baseUrl = 'https://udisc.com';
 
-export async function fetchCourses(courseTerm: string) {
+export async function fetchCourses(courseTerm: string): Promise<Course[]> {
   try {
     const res = await fetch(`${baseUrl}/courses.data?limit=5&courseTerm=${courseTerm}`);
 
@@ -21,7 +23,7 @@ export async function fetchCourses(courseTerm: string) {
 
     const text = await res.text();
 
-    const data: any[] = extractJsonChunks(text).flat();
+    const data: unknown[] = extractJsonChunks(text).flat();
 
     const courses = extractCourses(data);
 
@@ -36,7 +38,7 @@ export async function fetchCourses(courseTerm: string) {
   }
 }
 
-export async function fetchCourseDetails(slug: string) {
+export async function fetchCourseDetails(slug: string): Promise<CourseDetails> {
   try {
     const res = await fetch(`${baseUrl}/courses/${slug}.data`);
 
@@ -46,11 +48,11 @@ export async function fetchCourseDetails(slug: string) {
 
     const json = await res.json();
 
-    const schemaMap = resolveCourseSchemaMapSchema(json);
+    const schemaMap: Record<string, unknown> = resolveCourseSchemaMapSchema(json);
 
-    const courseDetailsSchema = schemaMap.courseDetail;
+    const courseDetailsSchema: Record<string, number> = schemaMap.courseDetail;
 
-    const courseDetails = resolveKeyAndValueNames(courseDetailsSchema, json);
+    const courseDetails: CourseDetails = resolveKeyAndValueNames<CourseDetails>(courseDetailsSchema, json);
 
     return courseDetails;
   } catch (error) {

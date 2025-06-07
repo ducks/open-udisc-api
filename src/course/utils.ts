@@ -42,17 +42,16 @@ export function extractCourses(data: any[]): any[] {
 }
 
 /**
- * Searches for the schema map schema given a route key
- * Then resolves the schema object it points to.
+ * Resolves a schema map of schema maps for a Course
  */
-export function resolveCourseSchemaMapSchema(data: any[], routeKey = 'routes/courses/$slug/index') {
+export function resolveCourseSchemaMapSchema<T>(data: unknown[]): T {
   for (let i = 0; i < data.length - 2; i++) {
     const label = data[i];
-    const pointerMap = data[i + 1];
+    const pointerMap = data[i + 1] as Record<string, number>;
     const schemaMap = data[i + 2];
 
     if (
-      label === routeKey &&
+      label === 'routes/courses/$slug/index' &&
       typeof pointerMap === 'object' &&
       typeof schemaMap === 'object' &&
       Object.keys(pointerMap).length === 1
@@ -60,11 +59,11 @@ export function resolveCourseSchemaMapSchema(data: any[], routeKey = 'routes/cou
       const pointerIndex = Object.values(pointerMap)[0];
       const referencedMap = data[pointerIndex];
 
-      if (typeof referencedMap === 'object') {
-        return resolveKeyAndValueNames(referencedMap, data);
+      if (referencedMap && typeof referencedMap === 'object') {
+        return resolveKeyAndValueNames<T>(referencedMap, data);
       }
     }
   }
 
-  throw new Error(`Could not resolve schema map schema for route ${routeKey}`);
+  throw new Error('Could not resolve schema map schema for course');
 }
