@@ -9,7 +9,9 @@ import {
   resolveCourseSchemaMapSchema,
 } from './utils';
 
-import { Course, CourseDetails } from './models';
+import { Course, CourseDetails, CourseSchemaMap } from './models';
+import { SmartHole, SmartLayout } from '../layout/models';
+import { SchemaMap } from '../models';
 
 const baseUrl = 'https://udisc.com';
 
@@ -48,9 +50,9 @@ export async function fetchCourseDetails(slug: string): Promise<CourseDetails> {
 
     const json = await res.json();
 
-    const schemaMap: Record<string, unknown> = resolveCourseSchemaMapSchema(json);
+    const schemaMap: CourseSchemaMap = resolveCourseSchemaMapSchema(json);
 
-    const courseDetailsSchema: Record<string, number> = schemaMap.courseDetail;
+    const courseDetailsSchema: SchemaMap = schemaMap.courseDetail;
 
     const courseDetails: CourseDetails = resolveKeyAndValueNames<CourseDetails>(courseDetailsSchema, json);
 
@@ -61,7 +63,7 @@ export async function fetchCourseDetails(slug: string): Promise<CourseDetails> {
   }
 }
 
-export async function fetchCourseSmartLayouts(slug: string) {
+export async function fetchCourseSmartLayouts(slug: string): Promise<SmartLayout[]> {
   try {
     const res = await fetch(`${baseUrl}/courses/${slug}.data`);
 
@@ -69,29 +71,35 @@ export async function fetchCourseSmartLayouts(slug: string) {
       throw new Error(`HTTP error: ${res.status}`);
     }
 
-    const layouts: any[] = [];
+    const layouts: SmartLayout[] = [];
 
     const json = await res.json();
 
-    const schemaMap = resolveCourseSchemaMapSchema(json);
+    const schemaMap: CourseSchemaMap = resolveCourseSchemaMapSchema(json);
 
-    const smartLayoutsSchema = resolveByIds(schemaMap.smartLayouts, json);
+    const smartLayouts: number[] = schemaMap.smartLayouts;
 
-    smartLayoutsSchema.forEach((schema: any) => {
+    const smartLayoutsSchema = resolveByIds<SchemaMap>(smartLayouts, json);
+
+    smartLayoutsSchema.forEach((schema) => {
       layouts.push(resolveKeyAndValueNames(schema, json));
     });
 
-    layouts.forEach(layout => {
-      const holesDecoded: any[] = [];
+    layouts.forEach((layout: SmartLayout) => {
+      const holesDecoded: SmartHole[] = [];
 
-      const holesSchema = resolveByIds(layout.holes, json);
+      const holes: number[] = layout.holes;
 
-      holesSchema.forEach((schema: any) => {
+      const holesSchema = resolveByIds<SchemaMap>(holes, json);
+
+      holesSchema.forEach((schema) => {
         holesDecoded.push(resolveKeyAndValueNames(schema, json));
       });
 
       layout.holes = holesDecoded;
     });
+
+    console.log(layouts);
 
     return layouts;
   } catch (error) {

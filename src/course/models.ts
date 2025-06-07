@@ -1,3 +1,5 @@
+import { SchemaMap } from '../models';
+
 export interface CourseDetails {
   /// Unique internal ID string (non-numeric)
   _id: string;
@@ -192,4 +194,43 @@ export interface Course extends CourseDetails {
 
   /// Optional status in current user's wishlist
   wishlistStatus?: string;
+}
+
+/// Represents a decoded schema section mapping logical groups to schema maps or record pointers
+export interface CourseSchemaMap {
+  /// Schema map for the course detail object
+  courseDetail: SchemaMap;
+
+  /// Schema map for normalized course traffic (e.g., historical player activity)
+  normalizedCourseTraffic: SchemaMap;
+
+  /// Array of record indices pointing to smart layout objects
+  smartLayouts: number[];
+
+  /// Array of record indices pointing to legacy/classic layouts
+  classicLayouts: number[];
+
+  /// Array of record indices pointing to review records
+  reviews: number[];
+
+  /// Array of record indices pointing to photo records
+  photos: number[];
+
+  /// Array of record indices pointing to nearby course summaries
+  nearbyCourses: number[];
+
+  /// Array of record indices pointing to nearby store records
+  nearbyStores: number[];
+
+  /// Array of record indices pointing to events associated with this course
+  events: number[];
+
+  /// Array of record indices pointing to badges (if any)
+  badges: number[];
+
+  /// May be undefined if no average layout stats are present
+  globalLayoutAverages?: number[] | undefined;
+
+  /// Login context for the current user ("loggedOut", "loggedIn", etc.)
+  userStatus: string;
 }
