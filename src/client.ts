@@ -4,6 +4,8 @@ import {
   fetchCourseSmartLayouts,
 } from './course/client';
 
+import { slugify } from './utils';
+
 export class UDiscAPI {
   private readonly baseUrl = 'https://udisc.com';
 
@@ -56,11 +58,13 @@ export class UDiscAPI {
 
       const res = await fetch(url);
 
-      const data: any[] = await res.json();
+      const courses: any[] = await res.json();
 
-      console.log(data);
+      courses.forEach(course => {
+        course.slug = `${slugify(course.name)}-${course.shortId}`;
+      });
 
-      return data;
+      return courses;
     } catch (error) {
       console.log('Fetch failed:', error);
       throw new Error(`Fetch failed ${error}`);
