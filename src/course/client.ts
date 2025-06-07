@@ -9,11 +9,11 @@ import {
   resolveCourseSchemaMapSchema,
 } from './utils';
 
-import { CourseDetails } from './models';
+import { Course, CourseDetails } from './models';
 
 const baseUrl = 'https://udisc.com';
 
-export async function fetchCourses(courseTerm: string) {
+export async function fetchCourses(courseTerm: string): Promise<Course[]> {
   try {
     const res = await fetch(`${baseUrl}/courses.data?limit=5&courseTerm=${courseTerm}`);
 
