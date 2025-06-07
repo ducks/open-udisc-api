@@ -56,8 +56,12 @@ export function slugify(name: string): string {
 /**
  * Resolves a schema map where both keys and values are index references into the data array.
  */
-export function resolveKeyAndValueNames(schema: Record<string, number>, data: any[]): Record<string, any> {
-  const result: Record<string, any> = {};
+export function resolveKeyAndValueNames<T>(
+  schema: Record<string, number>,
+  data: unknown[]
+): T {
+  const result: Partial<T> = {};
+
   for (const rawKey in schema) {
     const keyIndex = parseInt(rawKey.replace(/^_/, ''), 10);
     const valIndex = schema[rawKey];
@@ -67,9 +71,9 @@ export function resolveKeyAndValueNames(schema: Record<string, number>, data: an
       throw new Error(`Expected string field name at index ${keyIndex}, got: ${typeof fieldName}`);
     }
 
-    result[fieldName] = data[valIndex];
+    (result as Record<string, unknown>)[fieldName] = data[valIndex];
   }
-  return result;
+  return result as T;
 }
 
 /**

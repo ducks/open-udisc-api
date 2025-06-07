@@ -7,20 +7,21 @@ import {
 import { slugify } from './utils';
 
 import { Place } from './place/models';
+import { CourseDetails } from './course/models';
 
 export class UDiscAPI {
   private readonly baseUrl = 'https://udisc.com';
 
   async getCourses(courseTerm: string): Promise<any[]> {
-    fetchCourses(courseTerm);
+    return fetchCourses(courseTerm);
   }
 
-  async getCourseDetails(slug: string): Promise<any[]> {
+  async getCourseDetails(slug: string): Promise<CourseDetails> {
     if (!slug) {
       throw new Error('Course slug is required');
     }
 
-    fetchCourseDetails(slug);
+    return fetchCourseDetails(slug);
   }
 
   async getCourseSmartLayouts(slug: string): Promise<any[]> {
@@ -28,7 +29,7 @@ export class UDiscAPI {
       throw new Error('Course slug is required');
     }
 
-    fetchCourseSmartLayouts(slug);
+    return fetchCourseSmartLayouts(slug);
   }
 
   async searchPlaces(term: string): Promise<Place[]> {
