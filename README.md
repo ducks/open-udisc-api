@@ -61,27 +61,29 @@ const mapleHillDetails = udisc.getCourseDetails('maple-hill-lCej');
 [
   {
     _id: 'EZtA7PwYewSooaoZ5',
-    ratingCount: 4702,
+    ratingCount: 4706,
     name: 'Milo McIver (Riverbend East)',
-    ratingAverage: 4.6929850551724686,
+    ratingAverage: 4.6937361494052805,
     locationText: 'Estacada, Oregon',
     courseId: 3587,
     shortId: 'CKuM',
     highlights: [ [Object] ],
-    searchScore: 9.252313613891602,
-    autocompleteScore: 9.486962866650225
+    searchScore: 9.252726554870605,
+    autocompleteScore: 9.48741336234087,
+    slug: 'milo-mc-iver-riverbend-east-CKuM'
   },
   {
     _id: 'hwPd8XX3iwafpSZGk',
     courseId: 2825,
     name: 'Milo McIver (Riverbend West)',
     locationText: 'Estacada, OR',
-    ratingCount: 2040,
-    ratingAverage: 4.590285329353934,
+    ratingCount: 2041,
+    ratingAverage: 4.5898664300962215,
     shortId: 'Mgwd',
     highlights: [ [Object] ],
-    searchScore: 9.252313613891602,
-    autocompleteScore: 9.481827880359297
+    searchScore: 9.252726554870605,
+    autocompleteScore: 9.482219876375417,
+    slug: 'milo-mc-iver-riverbend-west-Mgwd'
   },
   {
     _id: 'rTCs6YbFBzjCWbbJM',
@@ -93,7 +95,8 @@ const mapleHillDetails = udisc.getCourseDetails('maple-hill-lCej');
     shortId: 'eTpM',
     highlights: [ [Object] ],
     searchScore: 1,
-    autocompleteScore: 1.2432447925552879
+    autocompleteScore: 1.2432447925552879,
+    slug: 'mill-creek-eTpM'
   },
   {
     _id: 'h5RgYhXDg42uHGu2c',
@@ -105,7 +108,8 @@ const mapleHillDetails = udisc.getCourseDetails('maple-hill-lCej');
     shortId: 'fmms',
     highlights: [],
     searchScore: 1,
-    autocompleteScore: 1.2381017184271523
+    autocompleteScore: 1.2381017184271523,
+    slug: 'the-mills-experience-fmms'
   },
   {
     _id: 'Exa6BGexXcLRMh7MG',
@@ -113,11 +117,12 @@ const mapleHillDetails = udisc.getCourseDetails('maple-hill-lCej');
     locationText: 'East Brookfield, MA',
     courseId: 42073,
     shortId: 'Qkn3',
-    ratingAverage: 4.745588224415595,
-    ratingCount: 1363,
+    ratingAverage: 4.747663334378944,
+    ratingCount: 1368,
     highlights: [ [Object] ],
     searchScore: 1,
-    autocompleteScore: 1.2372794112207797
+    autocompleteScore: 1.2373831667189472,
+    slug: 'mile-marker-63-Qkn3'
   }
 ]
 ```
