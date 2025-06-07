@@ -9,6 +9,7 @@ import { slugify } from './utils';
 import { Place } from './place/models';
 import { CourseDetails } from './course/models';
 import { Event } from './events/models';
+import { fetchEvent } from './events/client';
 
 export class UDiscAPI {
   private readonly baseUrl = 'https://udisc.com';
@@ -31,6 +32,14 @@ export class UDiscAPI {
     }
 
     return fetchCourseSmartLayouts(slug);
+  }
+
+  async getEvent(slug: string): Promise<Event> {
+    if (!slug) {
+      throw new Error('Event slug is required');
+    }
+
+    return fetchEvent(slug);
   }
 
   async searchPlaces(term: string): Promise<Place[]> {

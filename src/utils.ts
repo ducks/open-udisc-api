@@ -80,7 +80,7 @@ export function resolveKeyAndValueNames<T>(
  * Searches for the schema map schema given a route key
  * Then resolves the schema object it points to.
  */
-export function resolveSchemaMapSchema(data: any[], routeKey = 'routes/courses/$slug/index') {
+export function resolveSchemaMapSchema(data: any[], routeKey: string) {
   for (let i = 0; i < data.length - 2; i++) {
     const label = data[i];
     const pointerMap = data[i + 1];
@@ -104,31 +104,34 @@ export function resolveSchemaMapSchema(data: any[], routeKey = 'routes/courses/$
   throw new Error(`Could not resolve schema map schema for route ${routeKey}`);
 }
 
-export function deepHydrate(value: any, data: any[]): any {
-  if (Array.isArray(value)) {
-    return value.map((item) => deepHydrate(item, data));
+function isSchemaMap(obj: unknown): obj is Record<string, number> {
+  return typeof obj === 'object' &&
+         obj !== null &&
+         Object.keys(obj).every(k => /^_\d+$/.test(k));
+}
+
+export function deepHydrate<T>(input: T, data: unknown[]): T {
+  if (Array.isArray(input)) {
+    return input.map(item => deepHydrate(item, data)) as T;
   }
 
-  if (typeof value === 'object' && value !== null) {
-    const keys = Object.keys(value);
-    const isSchemaMap = keys.every((k) => k.startsWith('_'));
+  if (typeof input !== 'object' || input === null) return input;
 
-    if (isSchemaMap) {
-      const resolved = resolveKeyAndValueNames(
-        value as Record<string, number>,
-        data
+  const result: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(input)) {
+    if (isSchemaMap(value)) {
+      result[key] = resolveKeyAndValueNames(value, data);
+    } else if (Array.isArray(value)) {
+      result[key] = value.map(v =>
+        isSchemaMap(v) ? resolveKeyAndValueNames(v, data) : deepHydrate(v, data)
       );
-      return deepHydrate(resolved, data);
+    } else {
+      result[key] = deepHydrate(value, data);
     }
-
-    const result: Record<string, any> = {};
-    for (const key of keys) {
-      result[key] = deepHydrate(value[key], data);
-    }
-    return result;
   }
 
-  return value;
+  return result as T;
 }
 
 export function resolveByIds<T>(

@@ -42,6 +42,71 @@ export interface Event {
   slug: string;
 }
 
+export interface EventDescription {
+  /// UDisc internal unique event ID
+  _id: string;
+
+  /// Short slug/identifier for the event
+  shortId: string;
+
+  /// Type of event (e.g., "league", "tournament")
+  eventType: string;
+
+  /// Associated league ID, if it's a league event
+  leagueId?: string;
+
+  /// Legacy identifier, may be undefined
+  legacyEventId?: string;
+
+  /// Staff IDs or user references (by index)
+  staff?: number[];
+
+  /// Event name
+  name: string;
+
+  /// IANA timezone string for local time
+  timezone: string;
+
+  /// Cover image URL
+  coverPhotoUrl?: string;
+
+  /// Optional logo images
+  logoUrl?: string;
+  logoThumbnailUrl?: string;
+
+  /// Event date range
+  startDate: string;
+  endDate?: string;
+
+  /// Day(s) of the week the event occurs (likely numeric indices)
+  daysOfWeek?: number[];
+
+  /// Whether the event uses simplified league rules
+  isSimpleLeagueEvent?: boolean;
+
+  /// Raw approval object, needs further hydration
+  approval?: Record<string, number>;
+
+  /// Raw location schema map
+  location: Record<string, number>;
+
+  /// List of location references (by index)
+  locations?: number[];
+
+  /// Scoring configuration schema map
+  scoring?: Record<string, number>;
+
+  /// Registration settings schema map
+  registration?: Record<string, number>;
+
+  /// Placeholder for undefined pdga data
+  pdgaTournament?: boolean;
+
+  /// If the event was canceled, the date it occurred
+  canceledAt?: boolean;
+}
+
+
 export interface EventLocation {
   /// Location ID
   id: string;
