@@ -8,6 +8,7 @@ import { slugify } from './utils';
 
 import { Place } from './place/models';
 import { CourseDetails } from './course/models';
+import { Event } from './events/models';
 
 export class UDiscAPI {
   private readonly baseUrl = 'https://udisc.com';
@@ -68,6 +69,25 @@ export class UDiscAPI {
       });
 
       return courses;
+    } catch (error) {
+      console.log('Fetch failed:', error);
+      throw new Error(`Fetch failed ${error}`);
+    }
+  }
+
+  async searchEvents(term: string): Promise<Event[]> {
+    try {
+      if (!term) {
+        throw new Error('Search term is required');
+      }
+
+      const url = `${this.baseUrl}/api/eventListings/search?limit=5&term=${term}`;
+
+      const res = await fetch(url);
+
+      const events: Event[] = await res.json();
+
+      return events;
     } catch (error) {
       console.log('Fetch failed:', error);
       throw new Error(`Fetch failed ${error}`);
