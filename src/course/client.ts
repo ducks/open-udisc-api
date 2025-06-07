@@ -52,8 +52,6 @@ export async function fetchCourseDetails(slug: string): Promise<CourseDetails> {
 
     const courseDetailsSchema: Record<string, number> = schemaMap.courseDetail;
 
-    console.log(courseDetailsSchema);
-
     const courseDetails: CourseDetails = resolveKeyAndValueNames<CourseDetails>(courseDetailsSchema, json);
 
     return courseDetails;
