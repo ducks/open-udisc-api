@@ -28,9 +28,11 @@ This library is based on a multi-part blog series:
 - [x] Get course smart layouts
 - [ ] Getting all deeply nested course data
 
-- [ ] Events
-- [ ] Leaderboards
+- [x] GET Event details
+- [x] GET Event participants
+- [x] GET Event schedule
 
+- [ ] Leaderboards
 - [ ] OpenAPI docs
 - [ ] Tests (some tests and mock data is there but nothing really working)
 - [ ] Complete use of interfaces/models (some interfaces there but need to be
