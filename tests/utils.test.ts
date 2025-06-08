@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { extractJsonChunks, slugify } from '../src/utils';
+// import { SchemaMap } from '../src/models';
+
+//import mockCourse from './mocks/courses/course-maple-hill.json';
 
 describe('slugify', () => {
   it('converts names with spaces and punctuation', () => {
@@ -84,3 +87,28 @@ describe('extractJsonChunks', () => {
     expect(chunks[2]).toEqual([3, 4]);
   });
 });
+
+// describe('resolveSchemaMapSchema - course', () => {
+//   const courseSchemaMap: SchemaMap = resolveCourseSchemaMap(mockCourse);
+//
+//   it('resolves a course schema map into index-value map', () => {
+//     expect(typeof courseSchemaMap).toBe('object');
+//   });
+//
+//   it('should contain arrays of numeric IDs', () => {
+//     const idArrays = [
+//       'badges',
+//       'classicLayouts',
+//       'events',
+//       'photos',
+//       'smartLayouts',
+//       'nearbyCourses',
+//       'nearbyStores',
+//     ];
+//
+//     for (const key of idArrays) {
+//       expect(Array.isArray(schemaMap[key])).toBe(true);
+//       expect(isArrayOfNumbers(schemaMap[key])).toBe(true);
+//     }
+//   });
+// });
