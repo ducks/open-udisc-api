@@ -129,3 +129,53 @@ export interface EventLocation {
   /// Course name, if available
   courseName?: string;
 }
+
+export interface EventParticipant {
+  /// Unique ID for this event registration
+  _id: string;
+
+  /// Username of the participant (UDisc)
+  username: string;
+
+  /// Display name of the participant
+  name: string;
+
+  /// PDGA number, if available
+  pdgaNumber?: number;
+
+  /// UDisc user ID
+  registrantUserId: string;
+
+  /// Event-specific player ID (may be unused)
+  registrantPlayerId?: string;
+
+  /// League team ID (if this is a team-based registration)
+  teamRegistrantId?: string;
+
+  /// Solo or team registration
+  type: 'solo_user' | 'team_user';
+
+  /// Event listing ID this registration is tied to
+  eventListingId: string;
+
+  /// Division for competition (e.g. MPO, MA1, FA40)
+  division: string;
+
+  /// The event pool this player is grouped into
+  eventPoolId: string;
+
+  /// UDisc subscription status
+  proSubscriptionStatus: 'none' | 'subscribed' | 'one_time_purchase' | 'expired' | 'past_due';
+
+  /// Optional thumbnail image filename or URL fragment
+  thumbnailImage?: string;
+
+  /// Internal versioning used by UDisc
+  version: number;
+
+  /// Registration timestamp, UDisc-style date
+  createdAt: [ 'D', number ];
+
+  /// Registration status is a schema map
+  registrationStatus: Record<string, number>;
+}

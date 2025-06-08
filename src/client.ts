@@ -8,8 +8,12 @@ import { slugify } from './utils';
 
 import { Place } from './place/models';
 import { CourseDetails } from './course/models';
-import { Event } from './events/models';
-import { fetchEvent, fetchEventSchedule } from './events/client';
+import { Event, EventParticipant } from './events/models';
+import {
+  fetchEvent,
+  fetchEventSchedule,
+  fetchEventParticipants
+} from './events/client';
 
 export class UDiscAPI {
   private readonly baseUrl = 'https://udisc.com';
@@ -48,6 +52,14 @@ export class UDiscAPI {
     }
 
     return fetchEventSchedule(slug);
+  }
+
+  async getEventParticipants(slug: string): Promise<EventParticipant> {
+    if (!slug) {
+      throw new Error('Event slug is required');
+    }
+
+    return fetchEventParticipants(slug);
   }
 
   async searchPlaces(term: string): Promise<Place[]> {
