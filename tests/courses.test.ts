@@ -3,14 +3,15 @@ import { describe, it, expect } from 'vitest';
 import { resolveCourseSchemaMapSchema, resolveHoles } from '../src/course/utils';
 
 import mockCourse from './mocks/courses/course-maple-hill.json';
+import mockLeaderboard from './mocks/courses/evergreen-leaderboard.json';
 
 import { SchemaMap } from '../src/models';
 import { deepHydrate, resolveByIds, resolveKeyAndValueNames } from '../src/utils';
 
 import { SmartLayout, SmartHole } from '../src/layout/models';
 
-const schemaMap: SchemaMap = resolveCourseSchemaMapSchema(mockCourse);
-const course = deepHydrate(schemaMap, mockCourse);
+const courseSchemaMap: SchemaMap = resolveCourseSchemaMapSchema(mockCourse);
+const course = deepHydrate(courseSchemaMap, mockCourse);
 
 const smartLayoutsSchema = resolveByIds(course.smartLayouts, mockCourse);
 
@@ -18,12 +19,17 @@ const smartLayouts: SmartLayout[] = smartLayoutsSchema.map(schema =>
   resolveKeyAndValueNames(schema, mockCourse)
 );
 
+smartLayouts.forEach(layout => {
+  resolveHoles(layout, mockCourse);
+});
+
 function isArrayOfNumbers(value: unknown): boolean {
   return Array.isArray(value) && value.every(v => typeof v === 'number');
 }
 
 describe('course exploration', () => {
   it('should contain courseDetail', () => {
+    console.log(course);
     expect(course.courseDetail).toBeDefined();
   });
 
@@ -60,8 +66,6 @@ describe('smartLayouts exploration', () => {
       expect(layout.name).toBeDefined();
       expect(Array.isArray(layout.holes)).toBe(true);
 
-      resolveHoles(layout, mockCourse);
-
       layout.holes.forEach(hole => {
         expect(typeof hole.par).toBe('number');
         expect(hole.par).toBeGreaterThan(1);
@@ -73,12 +77,15 @@ describe('smartLayouts exploration', () => {
 describe('smartHole exploration', () => {
   it('has tee positions', () => {
     smartLayouts.forEach(layout => {
-      resolveHoles(layout, mockCourse);
-
-      //console.log(layout);
       layout.holes.forEach(hole => {
-        //console.log(hole);
+        expect(console.log(hole));
       });
     });
+  });
+});
+
+describe('leaderboard exploration', () => {
+  it('has data', () => {
+
   });
 });
