@@ -1,24 +1,22 @@
 import { describe, it, expect } from 'vitest';
 
-import { resolveCourseSchemaMapSchema } from '../src/course/utils';
+import { resolveCourseSchemaMapSchema, resolveHoles } from '../src/course/utils';
 
 import mockCourse from './mocks/courses/course-maple-hill.json';
 
 import { SchemaMap } from '../src/models';
 import { deepHydrate, resolveByIds, resolveKeyAndValueNames } from '../src/utils';
 
-import { SmartLayout } from '../src/layout/models';
+import { SmartLayout, SmartHole } from '../src/layout/models';
 
 const schemaMap: SchemaMap = resolveCourseSchemaMapSchema(mockCourse);
 const course = deepHydrate(schemaMap, mockCourse);
 
 const smartLayoutsSchema = resolveByIds(course.smartLayouts, mockCourse);
 
-const smartLayouts: SmartLayout[] = [];
-
-smartLayoutsSchema.forEach(schema => {
-  smartLayouts.push(resolveKeyAndValueNames(schema, mockCourse));
-});
+const smartLayouts: SmartLayout[] = smartLayoutsSchema.map(schema =>
+  resolveKeyAndValueNames(schema, mockCourse)
+);
 
 function isArrayOfNumbers(value: unknown): boolean {
   return Array.isArray(value) && value.every(v => typeof v === 'number');
@@ -54,6 +52,33 @@ describe('smartLayouts exploration', () => {
   it('should contain holes', () => {
     smartLayouts.forEach(layout => {
       expect(layout.holes).toBeDefined();
+    });
+  });
+
+  it('has layout names and holes with pars', () => {
+    smartLayouts.forEach(layout => {
+      expect(layout.name).toBeDefined();
+      expect(Array.isArray(layout.holes)).toBe(true);
+
+      resolveHoles(layout, mockCourse);
+
+      layout.holes.forEach(hole => {
+        expect(typeof hole.par).toBe('number');
+        expect(hole.par).toBeGreaterThan(1);
+      });
+    });
+  });
+});
+
+describe('smartHole exploration', () => {
+  it('has tee positions', () => {
+    smartLayouts.forEach(layout => {
+      resolveHoles(layout, mockCourse);
+
+      //console.log(layout);
+      layout.holes.forEach(hole => {
+        //console.log(hole);
+      });
     });
   });
 });
