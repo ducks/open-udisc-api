@@ -7,10 +7,11 @@ import {
 import {
   extractCourses,
   resolveCourseSchemaMapSchema,
+  resolveHoles
 } from './utils';
 
 import { Course, CourseDetails, CourseSchemaMap } from './models';
-import { SmartHole, SmartLayout } from '../layout/models';
+import { SmartLayout } from '../layout/models';
 import { SchemaMap } from '../models';
 
 const baseUrl = 'https://udisc.com';
@@ -86,20 +87,8 @@ export async function fetchCourseSmartLayouts(slug: string): Promise<SmartLayout
     });
 
     layouts.forEach((layout: SmartLayout) => {
-      const holesDecoded: SmartHole[] = [];
-
-      const holes: number[] = layout.holes;
-
-      const holesSchema = resolveByIds<SchemaMap>(holes, json);
-
-      holesSchema.forEach((schema) => {
-        holesDecoded.push(resolveKeyAndValueNames(schema, json));
-      });
-
-      layout.holes = holesDecoded;
+      resolveHoles(layout, json);
     });
-
-    console.log(layouts);
 
     return layouts;
   } catch (error) {

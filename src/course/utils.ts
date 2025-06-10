@@ -1,6 +1,6 @@
 import { Course } from './models';
-import { resolveKeyAndValueNames } from '../utils';
-
+import { resolveKeyAndValueNames, resolveByIds, deepHydrate } from '../utils';
+import { SmartHole } from '../layout/models';
 
 function findCourseResultIndices(data: any[]): number[] {
   for (let i = 0; i < data.length; i++) {
@@ -66,4 +66,25 @@ export function resolveCourseSchemaMapSchema<T>(data: unknown[]): T {
   }
 
   throw new Error('Could not resolve schema map schema for course');
+}
+
+/**
+ * Resolves holes for a smart layout
+ */
+export function resolveHoles(layout, data) {
+  const holesDecoded: SmartHole[] = [];
+
+  const holes: number[] = layout.holes;
+
+  const holesSchema = resolveByIds(holes, data);
+
+  holesSchema.forEach((schema) => {
+    const hole = resolveKeyAndValueNames(schema, data);
+    const decodedHole = deepHydrate(hole, data);
+
+    holesDecoded.push(decodedHole);
+  });
+
+
+  layout.holes = holesDecoded;
 }
