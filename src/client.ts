@@ -1,5 +1,5 @@
 import {
-  fetchCourseDetails,
+  fetchCourse,
   fetchCourses,
   fetchCourseSmartLayouts,
 } from './course/client';
@@ -7,7 +7,7 @@ import {
 import { slugify } from './utils';
 
 import { Place } from './place/models';
-import { CourseDetails } from './course/models';
+import { Course } from './course/models';
 import { Event, EventParticipant } from './events/models';
 import {
   fetchEvent,
@@ -22,12 +22,12 @@ export class UDiscAPI {
     return fetchCourses(courseTerm);
   }
 
-  async getCourseDetails(slug: string): Promise<CourseDetails> {
+  async getCourse(slug: string): Promise<Course> {
     if (!slug) {
       throw new Error('Course slug is required');
     }
 
-    return fetchCourseDetails(slug);
+    return fetchCourse(slug);
   }
 
   async getCourseSmartLayouts(slug: string): Promise<any[]> {

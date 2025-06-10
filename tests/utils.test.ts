@@ -1,8 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { extractJsonChunks, slugify } from '../src/utils';
-// import { SchemaMap } from '../src/models';
+import { extractJsonChunks, resolveByIds, resolveKeyAndValueNames, slugify } from '../src/utils';
+import { SchemaMap } from '../src/models';
+import { fullyHydrate, resolveSchemaMapSchema } from '../src/utils';
 
-//import mockCourse from './mocks/courses/course-maple-hill.json';
+import mockCourse from './mocks/courses/maple-hill-lCej.json';
 
 describe('slugify', () => {
   it('converts names with spaces and punctuation', () => {
@@ -112,3 +113,12 @@ describe('extractJsonChunks', () => {
 //     }
 //   });
 // });
+
+describe('exploring fullyHydrate', () => {
+  const courseSchemaMap: SchemaMap = resolveSchemaMapSchema(mockCourse, 'routes/courses/$slug/index');
+
+  const smartLayoutSchema = resolveByIds(courseSchemaMap.smartLayouts, mockCourse);
+
+  //console.log(fullyHydrate(smartLayoutSchema, mockCourse));
+
+});

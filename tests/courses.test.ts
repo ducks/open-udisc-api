@@ -6,7 +6,7 @@ import mockCourse from './mocks/courses/course-maple-hill.json';
 import mockLeaderboard from './mocks/courses/evergreen-leaderboard.json';
 
 import { SchemaMap } from '../src/models';
-import { deepHydrate, resolveByIds, resolveKeyAndValueNames } from '../src/utils';
+import { deepHydrate, fullyHydrate, resolveByIds, resolveKeyAndValueNames } from '../src/utils';
 
 import { SmartLayout, SmartHole } from '../src/layout/models';
 
@@ -29,7 +29,6 @@ function isArrayOfNumbers(value: unknown): boolean {
 
 describe('course exploration', () => {
   it('should contain courseDetail', () => {
-    console.log(course);
     expect(course.courseDetail).toBeDefined();
   });
 
@@ -75,17 +74,24 @@ describe('smartLayouts exploration', () => {
 });
 
 describe('smartHole exploration', () => {
-  it('has tee positions', () => {
+  it('has tee and target positions', () => {
     smartLayouts.forEach(layout => {
       layout.holes.forEach(hole => {
-        expect(console.log(hole));
+        expect(hole.teePosition).toBeDefined();
+        expect(hole.targetPosition).toBeDefined();
       });
     });
   });
-});
 
-describe('leaderboard exploration', () => {
-  it('has data', () => {
-
+  it('has target name and manufacturer', () => {
+    smartLayouts.forEach(layout => {
+      layout.holes.forEach(hole => {
+        const target = resolveKeyAndValueNames(hole.targetPosition.targetType, mockCourse);
+        const model = resolveKeyAndValueNames(target.basketModel, mockCourse);
+        expect(model.basketModelId).toBeDefined();
+        expect(model.name).toBeDefined();
+        expect(model.manufacturer).toBeDefined();
+      });
+    });
   });
 });
