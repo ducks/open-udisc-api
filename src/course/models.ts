@@ -1,200 +1,227 @@
 import { SchemaMap } from '../models';
 
-export interface CourseDetails {
-  /// Unique internal ID string (non-numeric)
+export interface CourseDetail {
+  /// Internal course document ID
   _id: string;
 
-  /// Course display name
-  name: string;
-
-  /// Short URL ID used in slugs (e.g., "LGWd")
-  shortId: string;
-
-  /// Numeric course ID used in other references
+  /// Numeric course ID
   courseId: number;
 
-  /// Human-readable access info (e.g., "Members Only")
-  accessTypeDescription?: string;
+  /// Display name of the course
+  name: string;
 
-  /// Availability status (e.g., "available", "closed")
-  availabilityStatus: string;
+  /// Shortened course identifier
+  shortId: string;
 
-  /// Human-readable description of availability schedule
-  availabilityTypeDescription?: string;
-
-  /// Whether there are access restrictions (time/gate/membership)
-  hasAvailabilityRestrictions: boolean;
-
-  /// Whether the course has restrooms
-  hasBathroom: boolean;
-
-  /// Optional description of bathroom location(s)
-  hasBathroomDescription?: string;
-
-  /// Whether drinking water is available
-  hasDrinkingWater: boolean;
-
-  /// Whether the course is suitable for carts
-  isCartFriendly: boolean;
-
-  /// Whether dogs are allowed on the course
-  isDogFriendly: boolean;
-
-  /// Optional description of leash/pet policies
-  isDogFriendlyDescription?: string;
-
-  /// Whether the course is stroller friendly
-  isStrollerFriendly: boolean;
-
-  /// Any other associated fees (e.g., parking, facilities)
-  otherFees: string;
-
-  /// Land ownership/use type (e.g., "dedicated", "mixedUse")
-  propertyType: string;
-
-  /// Optional website or external course info
-  website?: string;
-
-  /// Whether the course uses permanent disc golf targets
-  dedicatedTargets: boolean;
-
-  /// Whether players are allowed to bring their own beverages
-  byob: boolean;
-
-  /// Whether the course is under construction or partially closed
-  underConstruction: boolean;
-
-  /// Number of playable holes in standard layout
+  /// Number of holes on the course
   holeCount: number;
 
-  /// Array of land use type IDs (e.g., public park, private, etc.)
-  landType: number[];
-
-  /// Course latitude in WGS84 decimal degrees
+  /// Latitude of the course center
   latitude: number;
 
-  /// Course longitude in WGS84 decimal degrees
+  /// Longitude of the course center
   longitude: number;
 
-  /// Schema map pointing to contact-related fields
-  contactInfo: Record<string, number>;
+  /// Status of the course (e.g. "Active")
+  status: string;
 
-  /// Schema map pointing to layout-related metadata
-  layoutConfiguration: Record<string, number>;
+  /// Website URL for the course, if available
+  website?: string;
 
-  /// Schema map for location details (city/state/country/etc.)
-  location: Record<string, number>;
+  /// Whether the course requires a fee to play
+  isPay: boolean;
 
-  /// Schema map for weather or condition data
-  conditions: Record<string, number>;
-
-  /// Olson timezone string (e.g., "America/New_York")
-  timezone: string;
-
-  /// Country name (e.g., "United States")
+  /// Country the course is located in
   country: string;
 
-  /// General accessibility status (e.g., "accessible", "notAccessible")
-  accessibility: string;
+  /// Availability status (e.g. "available")
+  availabilityStatus: string;
+
+  /// Land type IDs (schema-mapped)
+  landType: number[];
+
+  /// Target type identifier (e.g. "basket")
+  targetType: string;
+
+  /// Description of the targets (e.g. "DISCatcher Pro (28 chains)")
+  targetTypeDescription: string;
+
+  /// Whether there are bathrooms available
+  hasBathroom: boolean;
+
+  /// Whether there is drinking water available
+  hasDrinkingWater: boolean;
+
+  /// Whether the course is cart-friendly
+  isCartFriendly: boolean;
+
+  /// Whether the course allows dogs
+  isDogFriendly: boolean;
+
+  /// Property type (e.g. "mixedUse")
+  propertyType: string;
+
+  /// Current conditions at the course
+  conditions: {
+    /// Condition type (e.g. "good")
+    type: string;
+
+    /// Optional details about conditions
+    details?: string;
+
+    /// Username of the last person to update conditions
+    updatedByUsername: string;
+
+    /// Timestamp of the last update
+    updatedAt: string;
+  };
+
+  /// GeoJSON-style location object
+  location: {
+    type: 'Point';
+    coordinates: [number, number];
+  };
+
+  /// Active target type IDs (schema-mapped)
+  activeTargetTypes: number[];
+
+  /// Active tee type IDs (schema-mapped)
+  activeTeeTypes: number[];
+
+  /// Layout-related configuration metadata
+  layoutConfiguration: {
+    /// Label IDs for tee positions
+    teePositionLabels: number[];
+
+    /// Label IDs for target positions
+    targetPositionLabels: number[];
+
+    /// Target type IDs (schema-mapped)
+    targetTypes: number[];
+
+    /// Tee type IDs (schema-mapped)
+    teeTypes: number[];
+
+    /// Timestamps when reviews were completed
+    initialReviewCompletedOn: string[];
+
+    /// Overrides the reported hole count
+    holeCountOverride: number;
+  };
+
+  /// Timezone for the course
+  timezone: string;
 
   /// Whether smart layouts are enabled for this course
   isSmartLayoutEnabled: boolean;
 
-  /// Target hardware type (e.g., "basket", "object", etc.)
-  targetType: string;
+  /// Describes seasonal or conditional layout availability
+  availabilityTypeDescription: string;
 
-  /// Descriptive string of the target hardware used
-  targetTypeDescription?: string;
+  /// Aggregated amenities rating
+  amenitiesRating: number;
 
-  /// Array of active target type IDs
-  activeTargetTypes: number[];
+  /// Aggregated design rating
+  designRating: number;
 
-  /// Array of active tee type IDs
-  activeTeeTypes: number[];
+  /// Aggregated scenery rating
+  sceneryRating: number;
 
-  /// Average user rating for amenities (0–5 scale)
-  amenitiesRating?: number;
+  /// Aggregated signage rating
+  signageRating: number;
 
-  /// Average user rating for course design (0–5 scale)
-  designRating?: number;
+  /// Aggregated tee condition rating
+  teeRating: number;
 
-  /// Average user rating for scenery (0–5 scale)
-  sceneryRating?: number;
+  /// Aggregated maintenance/upkeep rating
+  upkeepRating: number;
 
-  /// Average user rating for signage (0–5 scale)
-  signageRating?: number;
+  /// Describes how to access the course
+  accessTypeDescription: string;
 
-  /// Average user rating for tees (0–5 scale)
-  teeRating?: number;
+  /// Accessibility type (e.g. "notAccessible")
+  accessibility: string;
 
-  /// Average user rating for upkeep/maintenance (0–5 scale)
-  upkeepRating?: number;
+  /// Additional accessibility description
+  accessibilityDescription: string;
 
-  /// Array of difficulty bin IDs for rating segmentation
+  /// Whether alcohol is allowed (BYOB)
+  byob: boolean;
+
+  /// Whether the course uses dedicated targets
+  dedicatedTargets: boolean;
+
+  /// Whether any availability restrictions apply
+  hasAvailabilityRestrictions: boolean;
+
+  /// Description of any other fees
+  otherFees: string;
+
+  /// Whether the course is under construction
+  underConstruction: boolean;
+
+  /// Description of dog policy
+  isDogFriendlyDescription: string;
+
+  /// Whether the course is stroller-friendly
+  isStrollerFriendly: boolean;
+
+  /// Description of stroller accessibility
+  isStrollerFriendlyDescription: string;
+
+  /// Difficulty bin IDs (schema-mapped)
   difficultyBins: number[];
 }
 
-export interface Course extends CourseDetails {
-  /// User-friendly location name like "Charlotte, NC"
-  locationText?: string;
+export interface NormalizedCourseTraffic {
+  /// Estimated round time range in hours
+  typicalRoundLength: {
+    /// Minimum time to complete a round
+    lowerBound: number;
 
-  /// Status of the course (e.g., "Active", "Retired")
-  status?: string;
-
-  /// Display price, usually empty or a string like "$5"
-  price?: string;
-
-  /// Year the course was established
-  yearEstablished?: number;
-
-  /// Average user rating (1–5 stars)
-  ratingAverage?: number;
-
-  /// Number of user ratings
-  ratingCount?: number;
-
-  /// Long-form course description
-  longDescription?: string;
-
-  /// Short marketing-style summary
-  headline?: string;
-
-  /// US state or region name
-  state?: string;
-
-  /// City name, usually matches `locationText`
-  city?: string;
-
-  /// Slug used in URLs (e.g., "hornets-nest-park-LGWd")
-  slug?: string;
-
-  /// Access control (e.g., "everyone", "membersOnly")
-  accessType?: string;
-
-  /// State or region (may duplicate `state`)
-  admin1Name?: string;
-
-  /// UDisc’s world ranking score (0–100 scale)
-  worldRankingsRating?: number;
-
-  /// One of: "free", "payToPlay", "donation", etc.
-  playFeeType?: string;
-
-  /// Whether the course is on private land
-  isLocationPrivate?: boolean;
-
-  /// Schema map of photo metadata
-  topPhoto?: Record<string, number>;
-
-  /// Schema map for distance metadata
-  distanceFromSelectedPlace?: Record<string, number>;
-
-  /// Reference IDs for course "badges"
-  badgesInfo?: number[];
-
-  /// Optional status in current user's wishlist
-  wishlistStatus?: string;
+    /// Maximum time to complete a round
+    upperBound: number;
+  };
 }
+
+export interface Course {
+  /// Main course metadata
+  courseDetail: CourseDetail;
+
+  /// Estimated round time info
+  normalizedCourseTraffic: NormalizedCourseTraffic;
+
+  /// Smart layout IDs (schema-mapped)
+  smartLayouts: number[];
+
+  /// Classic layouts (not expanded)
+  classicLayouts: Record<string, unknown>;
+
+  /// Review IDs (schema-mapped)
+  reviews: number[];
+
+  /// Photo IDs (schema-mapped)
+  photos: number[];
+
+  /// Nearby courses (not expanded)
+  nearbyCourses: Record<string, unknown>;
+
+  /// Nearby store IDs (schema-mapped)
+  nearbyStores: number[];
+
+  /// Event IDs held at this course
+  events: number[];
+
+  /// Badge IDs (schema-mapped)
+  badges: number[];
+
+  /// Aggregated layout stats (may be null or missing)
+  globalLayoutAverages?: unknown;
+
+  /// Auth status of current user
+  userStatus: 'loggedOut' | 'loggedIn';
+}
+
 
 /// Represents a decoded schema section mapping logical groups to schema maps or record pointers
 export interface CourseSchemaMap {

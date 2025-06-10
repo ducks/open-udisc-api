@@ -142,3 +142,44 @@ export function resolveByIds<T>(
     .map((id) => records[id])
     .filter((obj): obj is T => obj !== undefined);
 }
+
+export function fullyHydrate<T>(
+  input: T,
+  data: unknown[],
+  seen = new WeakSet()
+): T {
+  // Primitives pass through
+  if (typeof input !== 'object' || input === null) return input;
+
+  // Avoid cycles
+  if (seen.has(input)) return input;
+  seen.add(input);
+
+  // Hydrate arrays
+  if (Array.isArray(input)) {
+    return input.map(item => fullyHydrate(item, data, seen)) as T;
+  }
+
+  const result: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(input)) {
+    if (isSchemaMap(value)) {
+      // Resolve, then fully hydrate the result
+      const resolved = resolveKeyAndValueNames(value, data);
+      result[key] = fullyHydrate(resolved, data, seen);
+    } else if (Array.isArray(value)) {
+      // Handle arrays of schema maps or objects
+      result[key] = value.map(item =>
+        isSchemaMap(item)
+          ? fullyHydrate(resolveKeyAndValueNames(item, data), data, seen)
+          : fullyHydrate(item, data, seen)
+      );
+    } else if (typeof value === 'object' && value !== null) {
+      result[key] = fullyHydrate(value, data, seen);
+    } else {
+      result[key] = value;
+    }
+  }
+
+  return result as T;
+}

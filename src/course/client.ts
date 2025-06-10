@@ -1,16 +1,17 @@
 import {
   extractJsonChunks,
+  fullyHydrate,
   resolveByIds,
   resolveKeyAndValueNames,
+  resolveSchemaMapSchema,
   slugify,
 } from '../utils';
 import {
   extractCourses,
-  resolveCourseSchemaMapSchema,
   resolveHoles
 } from './utils';
 
-import { Course, CourseDetails, CourseSchemaMap } from './models';
+import { Course, CourseSchemaMap } from './models';
 import { SmartLayout } from '../layout/models';
 import { SchemaMap } from '../models';
 
@@ -41,7 +42,7 @@ export async function fetchCourses(courseTerm: string): Promise<Course[]> {
   }
 }
 
-export async function fetchCourseDetails(slug: string): Promise<CourseDetails> {
+export async function fetchCourse(slug: string): Promise<Course> {
   try {
     const res = await fetch(`${baseUrl}/courses/${slug}.data`);
 
@@ -51,13 +52,11 @@ export async function fetchCourseDetails(slug: string): Promise<CourseDetails> {
 
     const json = await res.json();
 
-    const schemaMap: CourseSchemaMap = resolveCourseSchemaMapSchema(json);
+    const schemaMap: CourseSchemaMap = resolveSchemaMapSchema(json, 'routes/courses/$slug/index');
 
-    const courseDetailsSchema: SchemaMap = schemaMap.courseDetail;
+    const course: Course = fullyHydrate(schemaMap, json);
 
-    const courseDetails: CourseDetails = resolveKeyAndValueNames<CourseDetails>(courseDetailsSchema, json);
-
-    return courseDetails;
+    return course;
   } catch (error) {
     console.log('Fetch failed:', error);
     throw new Error(`Fetch failed ${error}`);
@@ -76,7 +75,7 @@ export async function fetchCourseSmartLayouts(slug: string): Promise<SmartLayout
 
     const json = await res.json();
 
-    const schemaMap: CourseSchemaMap = resolveCourseSchemaMapSchema(json);
+    const schemaMap: CourseSchemaMap = resolveSchemaMapSchema(json, 'routes/courses/$slug/index');
 
     const smartLayouts: number[] = schemaMap.smartLayouts;
 

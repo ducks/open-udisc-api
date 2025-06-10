@@ -42,33 +42,6 @@ export function extractCourses(data: any[]): any[] {
 }
 
 /**
- * Resolves a schema map of schema maps for a Course
- */
-export function resolveCourseSchemaMapSchema<T>(data: unknown[]): T {
-  for (let i = 0; i < data.length - 2; i++) {
-    const label = data[i];
-    const pointerMap = data[i + 1] as Record<string, number>;
-    const schemaMap = data[i + 2];
-
-    if (
-      label === 'routes/courses/$slug/index' &&
-      typeof pointerMap === 'object' &&
-      typeof schemaMap === 'object' &&
-      Object.keys(pointerMap).length === 1
-    ) {
-      const pointerIndex = Object.values(pointerMap)[0];
-      const referencedMap = data[pointerIndex];
-
-      if (referencedMap && typeof referencedMap === 'object') {
-        return resolveKeyAndValueNames<T>(referencedMap, data);
-      }
-    }
-  }
-
-  throw new Error('Could not resolve schema map schema for course');
-}
-
-/**
  * Resolves holes for a smart layout
  */
 export function resolveHoles(layout, data) {
