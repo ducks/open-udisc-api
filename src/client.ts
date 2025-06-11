@@ -18,7 +18,7 @@ import {
 export class UDiscAPI {
   private readonly baseUrl = 'https://udisc.com';
 
-  async getCourses(courseTerm: string): Promise<any[]> {
+  async getCourses(courseTerm: string): Promise<Course[]> {
     return fetchCourses(courseTerm);
   }
 
