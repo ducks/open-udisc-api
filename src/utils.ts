@@ -1,3 +1,5 @@
+import { SchemaMap } from "./models";
+
 export function extractJsonChunks(raw: string): any[] {
   const chunks: any[] = [];
   let i = 0;
@@ -80,7 +82,10 @@ export function resolveKeyAndValueNames<T>(
  * Searches for the schema map schema given a route key
  * Then resolves the schema object it points to.
  */
-export function resolveSchemaMapSchema(data: any[], routeKey: string) {
+export function resolveSchemaMapSchema<T = SchemaMap>(
+  data: unknown[],
+  routeKey: string
+): T {
   for (let i = 0; i < data.length - 2; i++) {
     const label = data[i];
     const pointerMap = data[i + 1];
@@ -90,12 +95,13 @@ export function resolveSchemaMapSchema(data: any[], routeKey: string) {
       label === routeKey &&
       typeof pointerMap === 'object' &&
       typeof schemaMap === 'object' &&
+      pointerMap &&
       Object.keys(pointerMap).length === 1
     ) {
       const pointerIndex = Object.values(pointerMap)[0];
       const referencedMap = data[pointerIndex];
 
-      if (typeof referencedMap === 'object') {
+      if (referencedMap && typeof referencedMap === 'object') {
         return resolveKeyAndValueNames(referencedMap, data);
       }
     }
@@ -144,15 +150,15 @@ export function resolveByIds<T>(
 }
 
 export function fullyHydrate<T>(
-  input: T,
+  input: unknown,
   data: unknown[],
   seen = new WeakSet()
 ): T {
   // Primitives pass through
-  if (typeof input !== 'object' || input === null) return input;
+  if (typeof input !== 'object' || input === null) return input as T;
 
   // Avoid cycles
-  if (seen.has(input)) return input;
+  if (seen.has(input)) return input as T;
   seen.add(input);
 
   // Hydrate arrays

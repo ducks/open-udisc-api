@@ -1,8 +1,9 @@
 import { Course } from './models';
 import { resolveKeyAndValueNames, resolveByIds, deepHydrate } from '../utils';
-import { SmartHole } from '../layout/models';
+import { SmartHole, SmartLayout } from '../layout/models';
+import { SchemaMap } from '../models';
 
-function findCourseResultIndices(data: any[]): number[] {
+function findCourseResultIndices(data: unknown[]): number[] {
   for (let i = 0; i < data.length; i++) {
     if (
       Array.isArray(data[i]) &&
@@ -15,7 +16,7 @@ function findCourseResultIndices(data: any[]): number[] {
   throw new Error('Could not find courseResults array');
 }
 
-export function extractCourses(data: any[]): any[] {
+export function extractCourses(data: unknown[]): Course[] {
   const schemaIndices = findCourseResultIndices(data);
   const courses: Course[] = [];
 
@@ -23,7 +24,7 @@ export function extractCourses(data: any[]): any[] {
     const schema = data[schemaIndex] as Record<string, number>;
     if (typeof schema !== 'object' || Array.isArray(schema)) continue;
 
-    const course: any = {};
+    const course: Course = {};
 
     for (const [rawFieldKey, valueIndex] of Object.entries(schema)) {
       const fieldKeyIndex = parseInt(rawFieldKey.replace(/^_/, ''), 10);
@@ -44,15 +45,15 @@ export function extractCourses(data: any[]): any[] {
 /**
  * Resolves holes for a smart layout
  */
-export function resolveHoles(layout, data) {
+export function resolveHoles(layout: SmartLayout, data: unknown[]) {
   const holesDecoded: SmartHole[] = [];
 
   const holes: number[] = layout.holes;
 
-  const holesSchema = resolveByIds(holes, data);
+  const holesSchema = resolveByIds<SchemaMap>(holes, data);
 
   holesSchema.forEach((schema) => {
-    const hole = resolveKeyAndValueNames(schema, data);
+    const hole: SmartHole = resolveKeyAndValueNames<SmartHole>(schema, data);
     const decodedHole = deepHydrate(hole, data);
 
     holesDecoded.push(decodedHole);

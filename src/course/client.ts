@@ -52,9 +52,9 @@ export async function fetchCourse(slug: string): Promise<Course> {
 
     const json = await res.json();
 
-    const schemaMap: CourseSchemaMap = resolveSchemaMapSchema(json, 'routes/courses/$slug/index');
+    const schemaMap: CourseSchemaMap = resolveSchemaMapSchema<CourseSchemaMap>(json, 'routes/courses/$slug/index');
 
-    const course: Course = fullyHydrate(schemaMap, json);
+    const course: Course = fullyHydrate<Course>(schemaMap, json);
 
     return course;
   } catch (error) {
