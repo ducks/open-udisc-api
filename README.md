@@ -292,6 +292,7 @@ const mapleHillDetails = udisc.getCourseDetails('maple-hill-lCej');
 <details>
 <summary>
 <h3>Getting Smart Layouts - Maple Hill Reds</h3>
+</summary>
 
 ```
 {
