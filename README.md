@@ -22,18 +22,22 @@ This library is based on a multi-part blog series:
 - Designed to work in both Node.js and browser environments (ESM only)
 
 ## Status
+### Courses
 - [x] Search Courses and Places
 - [x] Get courses based on a course term
 - [x] Get course details
 - [x] Get course smart layouts
 - [ ] Getting all deeply nested course data
 
+### Events
 - [x] GET Event details
 - [x] GET Event participants
 - [x] GET Event schedule
 
+### Misc
 - [ ] Leaderboards
-- [ ] OpenAPI docs
+
+### Internal
 - [ ] Tests (some tests and mock data is there but nothing really working)
 - [ ] Complete use of interfaces/models (some interfaces there but need to be
       actually implemented
@@ -57,7 +61,10 @@ const mapleHillDetails = udisc.getCourseDetails('maple-hill-lCej');
 
 ## Data Examples
 
-### Searching for Courses - Milo
+<details>
+<summary>
+  ### Searching for Courses - Milo
+</summary>
 
 ```
 [
@@ -128,6 +135,7 @@ const mapleHillDetails = udisc.getCourseDetails('maple-hill-lCej');
   }
 ]
 ```
+</details>
 
 ### Search for places - Charlotte
 
