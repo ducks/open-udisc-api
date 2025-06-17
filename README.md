@@ -137,7 +137,10 @@ const mapleHillDetails = udisc.getCourseDetails('maple-hill-lCej');
 ```
 </details>
 
-### Search for places - Charlotte
+<details>
+<summary>
+<h3>Search for places - Charlotte</h3>
+</summary>
 
 ```
 [
@@ -218,8 +221,12 @@ const mapleHillDetails = udisc.getCourseDetails('maple-hill-lCej');
   }
 ]
 ```
+</details>
 
-### Getting Course Details - Mile Marker 63
+<details>
+<summary>
+<h3>Getting Course Details - Mile Marker 63</h3>
+</summary>
 
 ```
 {
@@ -280,6 +287,7 @@ const mapleHillDetails = udisc.getCourseDetails('maple-hill-lCej');
   difficultyBins: [ 302, 303 ]
 }
 ```
+</details>
 
 ## License
 
