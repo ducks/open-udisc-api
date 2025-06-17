@@ -63,7 +63,7 @@ const mapleHillDetails = udisc.getCourseDetails('maple-hill-lCej');
 
 <details>
 <summary>
-### Searching for Courses - Milo
+<h3>Searching for Courses - Milo</h3>
 </summary>
 
 ```
