@@ -1,16 +1,15 @@
 import { describe, it, expect } from 'vitest';
 
-import { resolveCourseSchemaMapSchema, resolveHoles } from '../src/course/utils';
+import { resolveHoles } from '../src/course/utils';
 
 import mockCourse from './mocks/courses/course-maple-hill.json';
-import mockLeaderboard from './mocks/courses/evergreen-leaderboard.json';
 
 import { SchemaMap } from '../src/models';
-import { deepHydrate, fullyHydrate, resolveByIds, resolveKeyAndValueNames } from '../src/utils';
+import { deepHydrate, resolveByIds, resolveKeyAndValueNames, resolveSchemaMapSchema } from '../src/utils';
 
-import { SmartLayout, SmartHole } from '../src/layout/models';
+import { SmartLayout } from '../src/layout/models';
 
-const courseSchemaMap: SchemaMap = resolveCourseSchemaMapSchema(mockCourse);
+const courseSchemaMap: SchemaMap = resolveSchemaMapSchema(mockCourse, 'routes/courses/$slug/index');
 const course = deepHydrate(courseSchemaMap, mockCourse);
 
 const smartLayoutsSchema = resolveByIds(course.smartLayouts, mockCourse);
