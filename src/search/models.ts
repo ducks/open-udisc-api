@@ -12,3 +12,7 @@ export interface _Place {
   score: number;
   autocompleteScore: number;
 }
+
+export enum QuickFilter {
+  League = 'league',
+}
