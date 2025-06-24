@@ -93,4 +93,19 @@ describe('smartHole exploration', () => {
       });
     });
   });
+
+  it('has doglegs', () => {
+    smartLayouts.forEach(layout => {
+      layout.holes.forEach(hole => {
+        let doglegs;
+        if (hole.doglegs?.length) {
+          doglegs = resolveByIds(hole.doglegs, mockCourse);
+          doglegs.forEach(dogleg => {
+            hole.doglegs = resolveKeyAndValueNames(dogleg, mockCourse);
+          });
+        }
+        console.log(hole);
+      });
+    });
+  });
 });
