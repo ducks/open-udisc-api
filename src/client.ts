@@ -4,7 +4,13 @@ import {
   fetchCourseSmartLayouts,
 } from './course/client';
 
-import { slugify } from './utils';
+import {
+  slugify,
+  resolveKeyAndValueNames,
+  resolveByIds,
+  resolveSchemaMapSchema,
+  deepHydrate,
+} from './utils';
 
 import { Place } from './place/models';
 import { Course } from './course/models';
@@ -121,6 +127,84 @@ export class UDiscAPI {
       });
 
       return events;
+    } catch (error) {
+      console.log('Fetch failed:', error);
+      throw new Error(`Fetch failed ${error}`);
+    }
+  }
+
+  async searchLeagueEvents(query?: string): Promise<Event[]> {
+    try {
+      let url = `${this.baseUrl}/events.data?quickFilter=league`;
+
+      if (query) {
+        url = `${url}&query=${query}`;
+      }
+
+      const res = await fetch(url);
+
+      const json = await res.json();
+
+      const leaguesSchemaMap: SchemaMap = resolveSchemaMapSchema(json, 'routes/events/index');
+
+      const leagues = deepHydrate(leaguesSchemaMap, json);
+
+      const events = resolveByIds(leagues.events, json);
+
+      const ev = events.map((event: Event) => {
+        const e = resolveKeyAndValueNames(event, json);
+        e.slug = `${slugify(e.name)}-${e.shortId}`;
+
+        const location = resolveKeyAndValueNames(e.location, json);
+        e.location = location;
+
+        const dow = resolveByIds(e.daysOfWeek, json);
+        e.daysOfWeek = dow;
+
+        return e;
+      });
+
+      return ev;
+    } catch (error) {
+      console.log('Fetch failed:', error);
+      throw new Error(`Fetch failed ${error}`);
+    }
+  }
+
+  async searchPastLeagueEvents(query?: string): Promise<Event[]> {
+    try {
+      let url = `${this.baseUrl}/events.data?quickFilter=league&dates=past`;
+
+      if (query) {
+        url = `${url}&query=${query}`;
+      }
+
+      const res = await fetch(url);
+
+      const json = await res.json();
+
+      const leaguesSchemaMap: SchemaMap = resolveSchemaMapSchema(json, 'routes/events/index');
+
+      const leagues = deepHydrate(leaguesSchemaMap, json);
+
+      const events = resolveByIds(leagues.events, json);
+
+      const ev = events.map((event: Event) => {
+        const e = resolveKeyAndValueNames(event, json);
+        e.slug = `${slugify(e.name)}-${e.shortId}`;
+
+        const location = resolveKeyAndValueNames(e.location, json);
+        e.location = location;
+
+        const dow = resolveByIds(e.daysOfWeek, json);
+        e.daysOfWeek = dow;
+
+        return e;
+      });
+
+      console.log(ev);
+
+      return ev;
     } catch (error) {
       console.log('Fetch failed:', error);
       throw new Error(`Fetch failed ${error}`);
