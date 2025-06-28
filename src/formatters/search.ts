@@ -1,5 +1,5 @@
 import { UDiscUtils } from '../udisc/UDiscUtils';
-import { SearchResultCourse } from '../search/models';
+import { SearchResultCourse, SearchResultEvent } from '../search/models';
 
 export function formatSearchCourses(courses: SearchResultCourse[]): SearchResultCourse[] {
   courses.forEach(course => {
@@ -7,4 +7,12 @@ export function formatSearchCourses(courses: SearchResultCourse[]): SearchResult
   });
 
   return courses;
+}
+
+export function formatSearchEvents(events: SearchResultEvent[]): SearchResultEvent[] {
+  events.forEach((event: SearchResultEvent) => {
+    event.slug = `${UDiscUtils.slugify(event.name)}-${event.shortId}`;
+  });
+
+  return events;
 }

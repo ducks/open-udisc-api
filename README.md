@@ -23,16 +23,12 @@ This library is based on a multi-part blog series:
 
 ## Status
 ### Courses
-- [x] Search Courses and Places
-- [x] Get courses based on a course term
-- [x] Get course details
-- [x] Get course smart layouts
-- [ ] Getting all deeply nested course data
+- [x] Search Courses
+- [x] Get course based on a course slug
+- [x] Getting all deeply nested course data
 
 ### Events
-- [x] GET Event details
-- [x] GET Event participants
-- [x] GET Event schedule
+- [x] Search events
 
 ### Misc
 - [ ] Leaderboards
@@ -1127,6 +1123,112 @@ const mapleHill = udisc.getCourse('maple-hill-lCej');
   parRoundRating: 171.40234375,
   holeDistance: { _398: 3532, _400: 3533 }
 }
+```
+</details>
+
+<details>
+<summary>
+<h3>Searching for Events - Doubles</h3>
+</summary>
+
+```
+[
+  {
+    _id: 'event_listing_xmbeemke1wff6wc5i1ue1i9g',
+    eventType: 'tournament',
+    name: 'Lindsey Park High Stakes Doubles BY: First Class Disc Golf-Tyler',
+    location: {
+      id: 'event_listing_location_ek2nuxyyy0cfowb2sabaiqf9',
+      coordinates: [ -95.37829700993431, 32.30808281899667 ],
+      locationText: 'Tyler, TX',
+      locationType: 'course',
+      courseId: 'b3Q5CDApC7uPutm4M',
+      courseName: 'Lindsey Park DGC - Dogwood - Yellow',
+      courseShortId: 'Xv7q',
+      type: 'Point'
+    },
+    shortId: 'xsrNue',
+    legacyEventId: null,
+    autocompleteScore: 2.6264610290527344,
+    slug: 'lindsey-park-high-stakes-doubles-by-first-class-disc-golf-tyler-xsrNue'
+  },
+  {
+    _id: 'event_listing_m554vp7nw8i6tzwqsbjge2wp',
+    eventType: 'tournament',
+    name: 'Trilogy Challenge Double',
+    location: {
+      id: 'event_listing_location_ln0zk55gcdouj14ogp9a51d4',
+      coordinates: [ -111.78326480090618, 40.397555848364114 ],
+      locationText: 'American Fork, UT',
+      locationType: 'course',
+      courseId: 'JYnotQ4k2AAPavs25',
+      courseName: 'Art Dye Disc Golf Park',
+      courseShortId: 'H8mA',
+      type: 'Point'
+    },
+    shortId: 'lnygxb',
+    legacyEventId: null,
+    autocompleteScore: 1,
+    slug: 'trilogy-challenge-double-lnygxb'
+  },
+  {
+    _id: 'event_listing_k1strs1iyryp2ojx1wvqlesq',
+    shortId: 'mXjBua',
+    eventType: 'league',
+    legacyEventId: null,
+    name: '2025 Pier Park Doubles - 2025 Pier Park Doubles',
+    location: {
+      id: 'event_listing_location_xdgndvuc8y4l0sx1uos0bw1u',
+      type: 'Point',
+      coordinates: [ -122.757896, 45.6035 ],
+      locationType: 'course',
+      courseId: 'FvpYC2EnNt2XkwCMH',
+      courseName: 'Pier Park',
+      courseShortId: 'GN0G',
+      locationText: 'Portland, OR'
+    },
+    autocompleteScore: 3.815084934234619,
+    slug: '2025-pier-park-doubles-2025-pier-park-doubles-mXjBua'
+  },
+  {
+    _id: 'event_listing_pzv75q48jdhasxlsdfln9lzw',
+    eventType: 'tournament',
+    name: 'Otonabee Disc Golf Doubles',
+    location: {
+      id: 'event_listing_location_zlwwtahor9d1cr6lb656tnyu',
+      coordinates: [ -78.3422437207293, 44.21631690597121 ],
+      locationText: 'Peterborough, ON, Canada',
+      locationType: 'course',
+      courseId: 'GsybziMkMSETrvYDc',
+      courseName: 'Otonabee Disc Golf at Escape Maze',
+      courseShortId: 'KLWM',
+      type: 'Point'
+    },
+    shortId: '2weQUl',
+    legacyEventId: null,
+    autocompleteScore: 3.6015429496765137,
+    slug: 'otonabee-disc-golf-doubles-2weQUl'
+  },
+  {
+    _id: 'event_listing_o5kgrq2tprjk4jecfk1200n2',
+    eventType: 'tournament',
+    name: '3rd Annual Fundraiser Doubles Tournament',
+    location: {
+      id: 'event_listing_location_uvpjpae4h0umfqxocf0tieuh',
+      coordinates: [ -88.56663690543849, 38.09636886084786 ],
+      locationText: 'McLeansboro, IL',
+      locationType: 'course',
+      courseId: 'ZAKuMyoqwbKWR6jKB',
+      courseName: 'Fox Prairie',
+      courseShortId: 'lGV5',
+      type: 'Point'
+    },
+    shortId: 'fdmxuL',
+    legacyEventId: null,
+    autocompleteScore: 3.3963119983673096,
+    slug: '3rd-annual-fundraiser-doubles-tournament-fdmxuL'
+  }
+]
 ```
 </details>
 
