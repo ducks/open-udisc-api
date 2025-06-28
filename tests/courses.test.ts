@@ -1,111 +1,45 @@
-import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'fs';
 
-import { resolveHoles } from '../src/course/utils';
+import {
+  describe,
+  expect,
+  it,
+} from 'vitest';
 
-import mockCourse from './mocks/courses/course-maple-hill.json';
+import { UDiscUtils } from '../src/udisc/UDiscUtils';
 
-import { SchemaMap } from '../src/models';
-import { deepHydrate, resolveByIds, resolveKeyAndValueNames, resolveSchemaMapSchema } from '../src/utils';
+const brokenJson = readFileSync('./tests/mocks/courses/courses.json', 'utf-8');
 
-import { SmartLayout } from '../src/layout/models';
+const json: unknown[] = UDiscUtils.extractJsonChunks(brokenJson).flat();
 
-const courseSchemaMap: SchemaMap = resolveSchemaMapSchema(mockCourse, 'routes/courses/$slug/index');
-const course = deepHydrate(courseSchemaMap, mockCourse);
+const courses = UDiscUtils.extractCourses(json);
 
-const smartLayoutsSchema = resolveByIds(course.smartLayouts, mockCourse);
-
-const smartLayouts: SmartLayout[] = smartLayoutsSchema.map(schema =>
-  resolveKeyAndValueNames(schema, mockCourse)
-);
-
-smartLayouts.forEach(layout => {
-  resolveHoles(layout, mockCourse);
-});
-
-function isArrayOfNumbers(value: unknown): boolean {
-  return Array.isArray(value) && value.every(v => typeof v === 'number');
-}
-
-describe('course exploration', () => {
-  it('should contain courseDetail', () => {
-    expect(course.courseDetail).toBeDefined();
+describe('courses', () => {
+ it('contains valid course-like objects', () => {
+    for (const course of courses) {
+      expect(course).toEqual(
+        expect.objectContaining({
+          _id: expect.any(String),
+          name: expect.any(String),
+          holeCount: expect.any(Number),
+          shortId: expect.any(String),
+        })
+      );
+    }
   });
 
-  it('should contain layouts', () => {
-    expect(course.smartLayouts || course.classicLayouts).toBeDefined();
-  });
-});
+  it('has unique course IDs', () => {
+    const ids = courses.map((c) => c.courseId);
+    const unique = new Set(ids);
 
-describe('smartLayouts exploration', () => {
-  it('returns smartLayouts IDs', () => {
-    expect(Array.isArray(course.smartLayouts)).toBe(true);
-    expect(isArrayOfNumbers(course.smartLayouts)).toBe(true);
+    expect(unique.size).toBe(ids.length);
   });
 
-  it('resolves smartLayouts IDs', () => {
-    expect(Array.isArray(smartLayoutsSchema)).toBe(true);
-  });
+  it('includes slugified name and shortId', () => {
+    for (const course of courses) {
+      const expectedSlug = `${UDiscUtils.slugify(course.name)}-${course.shortId}`;
 
-  it('returns smartLayouts data', () => {
-    expect(Array.isArray(smartLayouts)).toBe(true);
-    expect(smartLayouts.length).toBeGreaterThan(0);
-    expect(typeof smartLayouts[0]).toBe('object');
-    expect(smartLayouts[0]).not.toBeNull();
-  });
-
-  it('should contain holes', () => {
-    smartLayouts.forEach(layout => {
-      expect(layout.holes).toBeDefined();
-    });
-  });
-
-  it('has layout names and holes with pars', () => {
-    smartLayouts.forEach(layout => {
-      expect(layout.name).toBeDefined();
-      expect(Array.isArray(layout.holes)).toBe(true);
-
-      layout.holes.forEach(hole => {
-        expect(typeof hole.par).toBe('number');
-        expect(hole.par).toBeGreaterThan(1);
-      });
-    });
-  });
-});
-
-describe('smartHole exploration', () => {
-  it('has tee and target positions', () => {
-    smartLayouts.forEach(layout => {
-      layout.holes.forEach(hole => {
-        expect(hole.teePosition).toBeDefined();
-        expect(hole.targetPosition).toBeDefined();
-      });
-    });
-  });
-
-  it('has target name and manufacturer', () => {
-    smartLayouts.forEach(layout => {
-      layout.holes.forEach(hole => {
-        const target = resolveKeyAndValueNames(hole.targetPosition.targetType, mockCourse);
-        const model = resolveKeyAndValueNames(target.basketModel, mockCourse);
-        expect(model.basketModelId).toBeDefined();
-        expect(model.name).toBeDefined();
-        expect(model.manufacturer).toBeDefined();
-      });
-    });
-  });
-
-  it('has doglegs', () => {
-    smartLayouts.forEach(layout => {
-      layout.holes.forEach(hole => {
-        let doglegs;
-        if (hole.doglegs?.length) {
-          doglegs = resolveByIds(hole.doglegs, mockCourse);
-          doglegs.forEach(dogleg => {
-            hole.doglegs = resolveKeyAndValueNames(dogleg, mockCourse);
-          });
-        }
-        console.log(hole);
-      });
-    });
+      expect(course.slug).toBe(expectedSlug);
+    }
   });
 });

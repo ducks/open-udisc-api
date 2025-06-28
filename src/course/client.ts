@@ -1,15 +1,14 @@
 import {
-  extractJsonChunks,
   fullyHydrate,
   resolveByIds,
   resolveKeyAndValueNames,
   resolveSchemaMapSchema,
-  slugify,
 } from '../utils';
 import {
-  extractCourses,
   resolveHoles
 } from './utils';
+
+import { UDiscUtils } from '../udisc/UDiscUtils';
 
 import { Course, CourseSchemaMap } from './models';
 import { SmartLayout } from '../layout/models';
@@ -27,13 +26,9 @@ export async function fetchCourses(courseTerm: string): Promise<Course[]> {
 
     const text = await res.text();
 
-    const data: unknown[] = extractJsonChunks(text).flat();
+    const data: unknown[] = UDiscUtils.extractJsonChunks(text).flat();
 
-    const courses = extractCourses(data);
-
-    courses.forEach(course => {
-      course.slug = `${slugify(course.name)}-${course.shortId}`;
-    });
+    const courses = UDiscUtils.extractCourses(data);
 
     return courses;
   } catch (error) {
