@@ -179,3 +179,53 @@ export interface EventParticipant {
   /// Registration status is a schema map
   registrationStatus: Record<string, number>;
 }
+
+export interface EventListing {
+  /// Unique internal ID for the event listing
+  _id: string;
+
+  /// Type of event (e.g. "tournament", "league")
+  eventType: string;
+
+  /// Name of the event
+  name: string;
+
+  /// Optional PDGA tournament ID or reference
+  pdgaTournament?: string | null;
+
+  /// Schema-mapped location object (lat/lon, etc.)
+  location: Record<string, number>;
+
+  /// Additional location references
+  locations: number[];
+
+  /// ISO start date (YYYY-MM-DD)
+  startDate: string;
+
+  /// ISO end date (YYYY-MM-DD)
+  endDate: string;
+
+  /// Array of numeric references to days of the week
+  daysOfWeek: number[];
+
+  /// Optional cropped cover image URL
+  croppedCoverPhotoUrl?: string | null;
+
+  /// Optional thumbnail for cover photo
+  coverPhotoThumbnailUrl?: string | null;
+
+  /// Optional full-size cover photo URL
+  coverPhotoUrl?: string | null;
+
+  /// Optional associated league ID
+  leagueId?: string | null;
+
+  /// Short identifier for linking/viewing
+  shortId: string;
+
+  /// Optional deprecated event ID
+  legacyEventId?: string | null;
+
+  /// Distance in meters or miles from search location
+  distance: number;
+}

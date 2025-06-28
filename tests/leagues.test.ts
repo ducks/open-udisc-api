@@ -7,29 +7,34 @@ import { SchemaMap } from '../src/models';
 import {
   deepHydrate,
   resolveByIds,
-  resolveKeyAndValueNames,
   resolveSchemaMapSchema,
 } from '../src/utils';
 
-import { UDiscDataDecoder } from '../src/dataDecoder';
+
+import { UDiscSchemaMap } from '../src/udisc/UDiscSchemaMap';
+import { UDiscIndexHydrator } from '../src/udisc/UDiscIndexHydrator';
+import { UDiscDataResolver } from '../src/udisc/UDiscDataResolver';
 
 import { UDiscAPI } from '../src/index';
+
 const udisc = new UDiscAPI();
 
-const decoder = new UDiscDataDecoder(mockLeaderboard);
+const leaderboardSchemaMap: SchemaMap = UDiscSchemaMap.extract(
+  mockLeaderboard,
+  'routes/events/$slug/leaderboard'
+);
 
-console.log(decoder.decode());
+const leaderboardResolver = new UDiscDataResolver(mockLeaderboard, leaderboardSchemaMap);
 
-
+console.log(leaderboardSchemaMap);
+//console.log(leaderboardResolver.resolveKeyValueMap('layout'));
+console.log(leaderboardResolver.resolveByIds('rounds'));
 const leaguesSchemaMap: SchemaMap = resolveSchemaMapSchema(mockLeague, 'routes/events/index');
 const leagues = deepHydrate(leaguesSchemaMap, mockLeague);
 
-const events = (resolveByIds(leagues.events, mockLeague));
+const events = resolveByIds(leagues.events, mockLeague);
 
-const leaderboardSchemaMap: SchemaMap = resolveSchemaMapSchema(mockLeaderboard, 'routes/events/$slug/leaderboard');
-
-const leaderboard = deepHydrate(leaderboardSchemaMap, mockLeaderboard);
-// console.log(leaderboard);
+console.log(leaderboard);
 // console.log(resolveKeyAndValueNames(leaderboard.eventListing.scoring, mockLeaderboard));
 const rounds = resolveByIds(leaderboard.eventRounds, mockLeaderboard);
 

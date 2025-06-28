@@ -1,1 +1,1 @@
-export { UDiscAPI } from './client';
+export { UDiscClient } from './UDiscClient';
