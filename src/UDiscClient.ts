@@ -3,12 +3,12 @@ import { Course, HydratedCourse } from './course/models';
 
 // Fetchers
 import { fetchCoursesData } from './fetchers/courses';
-import { fetchSearchCourses } from './fetchers/search';
+import { fetchSearchCourses, fetchSearchEvents } from './fetchers/search';
 import { formatCourse } from './formatters/course';
 
 // Formatters
-import { formatSearchCourses } from './formatters/search';
-import { SearchResultCourse } from './search/models';
+import { formatSearchCourses, formatSearchEvents } from './formatters/search';
+import { SearchResultCourse, SearchResultEvent } from './search/models';
 
 import { UDiscUtils } from './udisc/UDiscUtils';
 
@@ -40,5 +40,13 @@ export class UDiscClient {
     const courses = formatSearchCourses(data);
 
     return courses;
+  }
+
+  async searchEvents(query: string): Promise<SearchResultEvent[]> {
+    const data: SearchResultEvent[] = await fetchSearchEvents(query);
+
+    const events = formatSearchEvents(data);
+
+    return events;
   }
 }

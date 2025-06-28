@@ -9,7 +9,7 @@ import { UDiscClient } from '../../src/UDiscClient';
 const udisc = new UDiscClient();
 
 describe('search courses e2e test', () => {
-  it('returns valid SearchCourseResults', async () => {
+  it('returns valid SearchResultCourses', async () => {
     const courses = await udisc.searchCourses('hornet');
 
     expect(Array.isArray(courses)).toBe(true);
@@ -44,4 +44,38 @@ describe('search courses e2e test', () => {
       }
     }
   });
+});
+
+describe('search events e2e test', () => {
+  it('returns valid SearchResultEvents', async () => {
+
+    const events = await udisc.searchEvents('doubles');
+
+    expect(Array.isArray(events)).toBe(true);
+    expect(events.length).toBeGreaterThan(0);
+
+    for (const event of events) {
+      expect(typeof event._id).toBe('string');
+      expect(typeof event.name).toBe('string');
+      expect(typeof event.eventType).toBe('string');
+      expect(typeof event.shortId).toBe('string');
+
+      expect(event.legacyEventId === null || typeof event.legacyEventId === 'string').toBe(true);
+      expect(typeof event.autocompleteScore).toBe('number');
+
+      const loc = event.location;
+      expect(typeof loc.id).toBe('string');
+      expect(typeof loc.courseId).toBe('string');
+      expect(typeof loc.courseName).toBe('string');
+      expect(typeof loc.courseShortId).toBe('string');
+      expect(typeof loc.locationText).toBe('string');
+      expect(typeof loc.locationType).toBe('string');
+      expect(loc.type).toBe('Point');
+      expect(Array.isArray(loc.coordinates)).toBe(true);
+      expect(loc.coordinates.length).toBe(2);
+      expect(typeof loc.coordinates[0]).toBe('number');
+      expect(typeof loc.coordinates[1]).toBe('number');
+    }
+
+  }, 10_000);
 });

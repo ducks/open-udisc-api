@@ -4,11 +4,14 @@ import {
   it,
 } from 'vitest';
 
+import { UDiscSchemaMapExtractor } from '../src/udisc/UDiscSchemaMapExtractor';
 import { UDiscUtils } from '../src/udisc/UDiscUtils';
 
 import json from './mocks/events/events-all.json';
 
-const events = UDiscUtils.extractEvents(json);
+const schema = UDiscSchemaMapExtractor.extract(json, 'routes/events/index');
+
+const { events } = UDiscUtils.hydrateDeep(schema, json);
 
 describe('events', () => {
   it('has eventListing-like objects', () => {
