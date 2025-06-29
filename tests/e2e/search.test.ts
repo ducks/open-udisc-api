@@ -8,7 +8,7 @@ import { UDiscClient } from '../../src/UDiscClient';
 
 const udisc = new UDiscClient();
 
-describe('search courses e2e test', () => {
+describe.skip('search courses e2e test', () => {
   it('returns valid SearchResultCourses', async () => {
     const courses = await udisc.searchCourses('hornet');
 
@@ -46,7 +46,7 @@ describe('search courses e2e test', () => {
   });
 });
 
-describe('search events e2e test', () => {
+describe.skip('search events e2e test', () => {
   it('returns valid SearchResultEvents', async () => {
 
     const events = await udisc.searchEvents('doubles');

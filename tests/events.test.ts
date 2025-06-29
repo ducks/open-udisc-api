@@ -6,11 +6,20 @@ import {
 
 import { formatEvents } from '../src/formatters/events';
 
+import { FairwaySchemaMapExtractor } from '../src/fairway/FairwaySchemaMapExtractor';
+
 import json from './mocks/events/events-all.json';
+
+import prickly from './mocks/leagues/prickly-pines-course-tags-prickly-pines-course-tags-xARh2n.json';
+import { FairwayUtils } from '../src/fairway/FairwayUtils';
+
+const schema = FairwaySchemaMapExtractor.extract(prickly, 'routes/events/$slug/leaderboard');
+
+const leaderboard = FairwayUtils.hydrateDeep(schema, prickly);
 
 const events = formatEvents(json);
 
-describe('events', () => {
+describe('getEvents', () => {
   it('has eventListing-like objects', () => {
     expect(Array.isArray(events)).toBe(true);
     expect(events.length).toBeGreaterThan(0);
@@ -31,5 +40,18 @@ describe('events', () => {
         })
       );
     }
+  });
+});
+
+describe('getEventLeaderboard($slug)', () => {
+  it('gets round entry results', () => {
+    const entries = leaderboard.roundEntryResults;
+
+    expect(Array.isArray(entries)).toBe(true);
+    expect(entries.length).toBeGreaterThan(0);
+
+    //leaderboard.roundEntryResults.forEach(round => {
+    //  console.dir(round, { depth: null, colors: true });
+    //});
   });
 });

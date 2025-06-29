@@ -279,3 +279,175 @@ export interface HydratedEvent {
   /// Distance from a given point or location in meters
   distance?: number;
 }
+
+/// Represents a single hole score entry
+export interface HoleScore {
+  /// Status of the hole, e.g., 'complete'
+  type: string;
+  /// Penalty strokes incurred on the hole
+  penalty: number;
+  /// Score relative to par for this hole
+  relativeScore: number;
+  /// Total strokes recorded for the hole
+  score: number;
+  /// Raw throw count (can be -5 if missing)
+  throws: number;
+}
+
+/// Summary stats across the full round
+export interface RoundSummary {
+  /// Fairways hit percentage or value
+  fairway: number;
+  /// Greens in regulation
+  gir: number;
+  /// Circle 1 putting percentage
+  c1Putting: number;
+  /// Circle 1x putting percentage
+  c1xPutting: number;
+  /// Circle 2 putting percentage
+  c2Putting: number;
+  /// Scramble success rate
+  scramble: number;
+  /// Penalty detail object or metric
+  penalties: unknown;
+  /// Distance of throw-ins made
+  throwInDistance: number;
+}
+
+/// Statistics per hole, currently untyped
+export interface HoleStat {
+  [key: string]: unknown;
+}
+
+/// Detailed round statistics
+export interface RoundStats {
+  /// Aggregate round-level stats
+  roundSummary: RoundSummary;
+  /// Per-hole statistics
+  holeStats: HoleStat[];
+}
+
+/// Represents a single player's round entry within an event
+export interface EventRoundEntry {
+  /// Unique ID of this round entry
+  _id: string;
+  /// Bag tag placement after the round (or -5 if not applicable)
+  bagTagAfter: number;
+  /// Order on the card
+  cardSortOrder: number;
+  /// Hash of the score data
+  checksum: string;
+  /// ID of the course layout used
+  courseLayoutId: string;
+  /// Total score for the round
+  currentRoundScore: number;
+  /// Cut line info or -5 if N/A
+  cutInfo: number;
+  /// Division played in, e.g., "GEN"
+  division: string;
+  /// Did not finish info
+  dnfInfo: number;
+  /// ID of the card this player was assigned to
+  eventCardId: string;
+  /// ID of the event entry
+  eventEntryId: string;
+  /// Index number of entry
+  eventEntryIndex: number;
+  /// Status of the event entry
+  eventEntryState: string;
+  /// ID of the event listing
+  eventListingId: string;
+  /// ID of the pool the event entry belongs to
+  eventPoolId: string;
+  /// ID of the registrant for the event
+  eventRegistrantId: string;
+  /// ID of the event round
+  eventRoundId: string;
+  /// Total score for the event
+  eventScore: number;
+  /// ISO country flag (or -5 if not available)
+  flagIso: number;
+  /// Player handicap
+  handicap: number;
+  /// Player's handicap-based ranking
+  handicapRanking: number;
+  /// Whether the handicap ranking is tied
+  handicapRankingIsTie: boolean;
+  /// Handicap-relative round score
+  handicapRelativeRoundScore: number;
+  /// Position in a handicap tiebreaker
+  handicapTiebreakPosition: number;
+  /// Scores for each hole
+  holeScores: HoleScore[];
+  /// Whether the round is complete
+  isComplete: boolean;
+  /// Legacy payout data (or -5 if not used)
+  legacyPayout: number;
+  /// Player name
+  name: string;
+  /// Handicap rank from the previous round
+  previousHandicapRanking: number;
+  /// Overall previous round rank
+  previousRanking: number;
+  /// Player's rank in this round
+  ranking: number;
+  /// Whether the rank is shared
+  rankingIsTie: boolean;
+  /// If the registrant has more than one entry
+  registrantHasMultipleEventEntries: boolean;
+  /// Event score relative to par
+  relativeEventScore: number;
+  /// Round score relative to par
+  relativeRoundScore: number;
+  /// Zero-based round index
+  roundIndex: number;
+  /// Round-level penalty
+  roundPenalty: number;
+  /// Round rating
+  roundRating: number;
+  /// Round scores (can include split scores)
+  roundScores: number[];
+  /// Detailed stats for the round
+  roundStats: RoundStats;
+  /// Last time this scorecard entry was updated
+  scorecardEntryUpdatedAt: [string, number];
+  /// Hole the player started on
+  startingHoleIndex: number;
+  /// Any score adjustment at the start
+  startingScoreAdjustment: number;
+  /// Tee time of the round
+  teeTime: [string, number];
+  /// Number of holes completed
+  thruHoleCount: number;
+  /// Tiebreak position (or -5 if N/A)
+  tiebreakPosition: number;
+  /// Timestamp of last update
+  updatedAt: [string, number];
+}
+
+
+/// Represents an individual registrant in an event
+export interface EventRegistrant {
+  /// Unique ID of the registrant
+  _id: string;
+  /// Team registrant ID (if part of a team), or -5 if solo
+  teamRegistrantId: string | number;
+  /// Type of registrant (usually "solo_user")
+  type: string;
+  /// Display name of the registrant
+  name: string;
+  /// Whether the name has been overridden manually
+  isNameOverridden: boolean;
+  /// Internal user ID for the registrant
+  registrantUserId: string;
+  /// PDGA number if available, or -5 if unknown
+  pdgaNumber: number;
+  /// ID of the event listing the registrant is associated with
+  eventListingId: string;
+  /// UDisc username of the registrant
+  username: string;
+  /// Thumbnail image URL or -7 if missing
+  thumbnailImage: string | number;
+  /// Handicap value or -5 if not set
+  handicap: number;
+}

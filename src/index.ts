@@ -1,1 +1,1 @@
-export { UDiscClient } from './UDiscClient';
+export { FairwayClient } from './FairwayClient';

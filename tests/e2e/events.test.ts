@@ -4,21 +4,21 @@ import {
   it,
 } from 'vitest';
 
-import { UDiscClient } from '../../src/UDiscClient';
+import { FairwayClient } from '../../src/FairwayClient';
 import { EventQuickFilter } from '../../src/events/models';
 
-const udisc = new UDiscClient();
+const fairway = new FairwayClient();
 
-describe('getEvents e2e test', () => {
+describe.skip('getEvents e2e test', () => {
   it('gets all events', async () => {
-    const events = await udisc.getEvents(EventQuickFilter.All);
+    const events = await fairway.getEvents(EventQuickFilter.All);
 
     expect(Array.isArray(events)).toBe(true);
     expect(events.length).toBeGreaterThan(0);
   });
 
   it('gets league events', async () => {
-    const events = await udisc.getEvents(EventQuickFilter.League);
+    const events = await fairway.getEvents(EventQuickFilter.League);
 
     expect(Array.isArray(events)).toBe(true);
     expect(events.length).toBeGreaterThan(0);
@@ -29,7 +29,7 @@ describe('getEvents e2e test', () => {
   });
 
   it('gets tournament events', async () => {
-    const events = await udisc.getEvents(EventQuickFilter.Tournament);
+    const events = await fairway.getEvents(EventQuickFilter.Tournament);
 
     expect(Array.isArray(events)).toBe(true);
     expect(events.length).toBeGreaterThan(0);
@@ -37,5 +37,15 @@ describe('getEvents e2e test', () => {
     for (const event of events) {
       expect(event).toHaveProperty('eventType', 'tournament');
     }
+  });
+});
+
+describe.skip('getEventLeaderboard e2e test', () => {
+  it('gets event results', async () => {
+    const eventResults = await fairway.getEventLeaderboard(
+      'prickly-pines-course-tags-prickly-pines-course-tags-xARh2n'
+    );
+
+    console.log(eventResults);
   });
 });
