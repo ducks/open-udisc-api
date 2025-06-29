@@ -9,6 +9,9 @@ interact with `.data` JSON payloads returned by UDisc's web app endpoints.
 > ⚠️ This library is not affiliated with or endorsed by UDisc. It is provided
 > for educational and research purposes only.
 
+See README.dev.md for a deeper dive into the data structure and design philosophy
+of this project.
+
 ## Blog
 
 This library is based on a multi-part blog series:
@@ -31,12 +34,15 @@ This library is based on a multi-part blog series:
 
 ### Events
 - [x] Search events
+- [x] Get Event Leaderboard
+- [ ] More getEvents quick filters
 
 ### Misc
 - [ ] Leaderboards
 
 ### Internal
-- [ ] Tests (some tests and mock data is there but nothing really working)
+- [x] Tests (these are mostly used for my personal exploration. they use mocks
+      that I don't want to host anymore.)
 - [ ] Complete use of interfaces/models (some interfaces there but need to be
       actually implemented
 
@@ -45,7 +51,7 @@ This library is based on a multi-part blog series:
 ```
 import { FairwayClient } from 'FairwayClient';
 
-const fairway = new Fairway();
+const fairway = new FairwayClient();
 
 const miloSearch = fairway.searchCourses('milo');
 
