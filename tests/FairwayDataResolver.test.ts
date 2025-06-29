@@ -4,9 +4,9 @@ import {
   it,
 } from 'vitest';
 
-import { UDiscDataResolver } from '../src/udisc/UDiscDataResolver';
+import { FairwayDataResolver } from '../src/fairway/FairwayDataResolver';
 
-describe('UDiscDataResolver', () => {
+describe('FairwayDataResolver', () => {
   it('resolveKeyValueMap decodes indexed object correctly', () => {
 
     const raw = ['id', 'value', 'ignored'];
@@ -16,7 +16,7 @@ describe('UDiscDataResolver', () => {
       }
     };
 
-    const resolver = new UDiscDataResolver(raw, schema);
+    const resolver = new FairwayDataResolver(raw, schema);
     const result = resolver.get('testMap');
 
     expect(result).toEqual({ id: 'value' });

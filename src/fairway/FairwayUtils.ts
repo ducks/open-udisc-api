@@ -1,7 +1,7 @@
 import { Course } from '../course/models';
-import { UDiscDataResolver } from './UDiscDataResolver';
+import { FairwayDataResolver } from './FairwayDataResolver';
 
-export class UDiscUtils {
+export class FairwayUtils {
   static extractJsonChunks(raw: string): unknown[] {
   const chunks: unknown[] = [];
   let i = 0;
@@ -160,13 +160,13 @@ static findEventResultIndices(data: unknown[]): number[] {
     for (const [key, value] of Object.entries(input)) {
       if (this.isSchemaMap(value)) {
         // Resolve, then fully hydrate the result
-        const resolved = UDiscDataResolver.resolveKeyValueMap(value, data);
+        const resolved = FairwayDataResolver.resolveKeyValueMap(value, data);
         result[key] = this.fullyHydrate(resolved, data, seen);
       } else if (Array.isArray(value)) {
         // Handle arrays of schema maps or objects
         result[key] = value.map(item =>
                                 this.isSchemaMap(item)
-                                  ? this.fullyHydrate(UDiscDataResolver.resolveKeyValueMap(item, data), data, seen)
+                                  ? this.fullyHydrate(FairwayDataResolver.resolveKeyValueMap(item, data), data, seen)
                                   : this.fullyHydrate(item, data, seen)
                                );
       } else if (typeof value === 'object' && value !== null) {

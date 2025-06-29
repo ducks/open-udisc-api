@@ -1,4 +1,4 @@
-export class UDiscDataFetcher {
+export class FairwayDataFetcher {
   constructor(
     private readonly baseUrl: string = 'https://udisc.com/'
   ) {}

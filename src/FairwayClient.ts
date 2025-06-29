@@ -16,15 +16,15 @@ import { SearchResultCourse, SearchResultEvent } from './search/models';
 import { formatCourse } from './formatters/course';
 import { formatEvents } from './formatters/events';
 
-import { UDiscUtils } from './udisc/UDiscUtils';
+import { FairwayUtils } from './fairway/FairwayUtils';
 
 export class UDiscClient {
   // Courses
   async getCourses(): Promise<Course[]> {
     const rawData = await fetchCoursesData();
-    const json: unknown[] = UDiscUtils.extractJsonChunks(rawData).flat();
+    const json: unknown[] = FairwayUtils.extractJsonChunks(rawData).flat();
 
-    const courses = UDiscUtils.extractCourses(json);
+    const courses = FairwayUtils.extractCourses(json);
 
     return courses;
   }

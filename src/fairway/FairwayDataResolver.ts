@@ -1,4 +1,4 @@
-export class UDiscDataResolver {
+export class FairwayDataResolver {
   constructor(
     private readonly raw: unknown[],
     private readonly schema: Record<string, unknown>
@@ -22,15 +22,15 @@ export class UDiscDataResolver {
 
   // Instance version
   public resolveKeyValueMap<T = unknown>(schemaMap: unknown): T {
-    return UDiscDataResolver.resolveKeyValueMap<T>(this.raw, schemaMap);
+    return FairwayDataResolver.resolveKeyValueMap<T>(this.raw, schemaMap);
   }
 
   public resolveByIds<T = unknown>(idList: unknown): T[] {
-    return UDiscDataResolver.resolveByIds<T>(this.raw, idList);
+    return FairwayDataResolver.resolveByIds<T>(this.raw, idList);
   }
 
   public recurse<T = unknown>(value: unknown): T {
-    return UDiscDataResolver.recurse(this.raw, value);
+    return FairwayDataResolver.recurse(this.raw, value);
   }
 
   // --- Static versions below ---
@@ -77,7 +77,7 @@ export class UDiscDataResolver {
     if (Array.isArray(value)) {
       return value.map((v) =>
         typeof v === 'object' && v !== null
-          ? UDiscDataResolver.recurse(raw, v)
+          ? FairwayDataResolver.recurse(raw, v)
           : v
       ) as T;
     }
@@ -95,7 +95,7 @@ export class UDiscDataResolver {
         !Array.isArray(val) &&
         Object.keys(val).every((k) => k.startsWith('_') && typeof (val as unknown)[k] === 'number')
       ) {
-        const nested = new UDiscDataResolver(raw, { nested: val });
+        const nested = new FairwayDataResolver(raw, { nested: val });
         result[key] = nested.get('nested', { recursive: true });
       } else {
         result[key] = val;
