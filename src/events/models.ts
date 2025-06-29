@@ -106,30 +106,6 @@ export interface EventDescription {
   canceledAt?: boolean;
 }
 
-
-export interface EventLocation {
-  /// Location ID
-  id: string;
-
-  /// Full location string (e.g., "Denver, CO")
-  locationText: string;
-
-  /// Coordinates as [longitude, latitude]
-  coordinates: [number, number];
-
-  /// Type of location, typically "course"
-  locationType: string;
-
-  /// UDisc internal course ID
-  courseId?: string;
-
-  /// Short course slug
-  courseShortId?: string;
-
-  /// Course name, if available
-  courseName?: string;
-}
-
 export interface EventParticipant {
   /// Unique ID for this event registration
   _id: string;
@@ -228,4 +204,78 @@ export interface EventListing {
 
   /// Distance in meters or miles from search location
   distance: number;
+}
+
+export enum EventQuickFilter {
+  All = 'all',
+  League = 'league',
+  Tournament = 'tournament',
+  Trending = 'trending',
+  PDGA = 'pdga',
+  Cleanup = 'course-cleanup',
+  Glow = 'glow',
+  Clinic = 'clinic',
+  Women = 'women',
+  Charity = 'charity'
+}
+
+/// Represents a location associated with an event
+export interface EventLocation {
+  /// Unique identifier for the location
+  id: string;
+  /// Coordinate point [longitude, latitude]
+  coordinates: [number, number];
+  /// Display-friendly text for the location
+  locationText: string;
+  /// Type of location (e.g., "course")
+  locationType: string;
+  /// ID of the course at the location
+  courseId: string;
+  /// Name of the course
+  courseName: string;
+  /// Short identifier for the course
+  courseShortId: string;
+  /// GeoJSON type, usually "Point"
+  type?: string;
+  /// Optional legacy timestamp fields
+  createdAt?: unknown;
+  updatedAt?: unknown;
+  deletedAt?: unknown;
+  previousId?: string;
+}
+
+/// Represents a fully hydrated event from the event listing
+export interface HydratedEvent {
+  /// Unique identifier for the event
+  _id: string;
+  /// Short, shareable identifier
+  shortId: string;
+  /// Type of event (e.g., "league" or "tournament")
+  eventType: 'league' | 'tournament';
+  /// Optional league ID if the event is part of a league
+  leagueId?: string | number;
+  /// Legacy event ID (often -5 if unused)
+  legacyEventId?: number | null;
+  /// Optional PDGA tournament ID (often -5 if unused)
+  pdgaTournament?: number | null;
+  /// Name/title of the event
+  name: string;
+  /// Main location object for the event
+  location: EventLocation;
+  /// Additional locations associated with the event
+  locations: EventLocation[];
+  /// Start date of the event in YYYY-MM-DD format
+  startDate: string;
+  /// End date of the event in YYYY-MM-DD format
+  endDate: string;
+  /// Days of the week the event occurs on (1–7 for Mon–Sun)
+  daysOfWeek: number[];
+  /// Optional URL for the cover photo
+  coverPhotoUrl?: string | number;
+  /// Optional URL for the cropped version of the cover photo
+  croppedCoverPhotoUrl?: string | number;
+  /// Optional thumbnail image URL for the cover photo
+  coverPhotoThumbnailUrl?: string | number;
+  /// Distance from a given point or location in meters
+  distance?: number;
 }
