@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "test": "vitest",
+    "test:mocks": "vitest run tests",
     "build": "tsup src/index.ts --format esm --outDir dist --clean",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
