@@ -2,23 +2,23 @@ import { fetchCourseData } from './fetchers/courses';
 import { Course, HydratedCourse } from './course/models';
 
 // Models
-import { EventQuickFilter } from './events/models';
+import { EventQuickFilter, EventRoundEntry } from './events/models';
 import { HydratedEvent } from './events/models';
 
 // Fetchers
 import { fetchCoursesData } from './fetchers/courses';
 import { fetchSearchCourses, fetchSearchEvents } from './fetchers/search';
-import { fetchEventsData } from './fetchers/events';
+import { fetchEventLeaderboardData, fetchEventsData } from './fetchers/events';
 
 // Formatters
 import { formatSearchCourses, formatSearchEvents } from './formatters/search';
 import { SearchResultCourse, SearchResultEvent } from './search/models';
 import { formatCourse } from './formatters/course';
-import { formatEvents } from './formatters/events';
+import { formatEventLeaderboard, formatEvents } from './formatters/events';
 
 import { FairwayUtils } from './fairway/FairwayUtils';
 
-export class UDiscClient {
+export class FairwayClient {
   // Courses
   async getCourses(): Promise<Course[]> {
     const rawData = await fetchCoursesData();
@@ -66,4 +66,14 @@ export class UDiscClient {
 
     return events;
   }
+
+  async getEventLeaderboard(slug: string, round: number = 1): Promise<EventRoundEntry[]> {
+    const data = await fetchEventLeaderboardData(slug, round);
+
+    const event = formatEventLeaderboard(data);
+
+    return event;
+  }
+
+
 }

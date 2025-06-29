@@ -54,6 +54,15 @@ const miloSearch = fairway.searchCourses('milo');
 // be correct
 
 const mapleHill = fairway.getCourse('maple-hill-lCej');
+
+// Getting Event Leaderboard/Scores
+
+// Search events for one named prickly pines
+// Find yours, use slug for next step.
+const myDoublesLeague = fairway.searchEvents('prickly pines');
+
+// getEventLeaderboard takes a slug and a round
+const leaderboard = fairway.getEventLeaderboard(myDoublesLeague.slug, 1)
 ```
 
 ## Data Examples
@@ -1233,6 +1242,592 @@ const mapleHill = fairway.getCourse('maple-hill-lCej');
 ]
 ```
 </details>
+
+<details>
+<summary>
+<h3>Getting Event Leaderboard</h3>
+</summary>
+
+```
+{
+  type: 'divisional-leaderboard',
+  selectedDivision: { key: 'GEN', fullName: 'General', divisionType: 'custom' },
+  divisions: [ { key: 'GEN', fullName: 'General', divisionType: 'custom' } ],
+  rounds: [ { roundIndex: 0, disabled: false, status: 'finished' } ],
+  round: {
+    _id: 'event_round_b3kz3lr759lo7bhdc74vg18n',
+    eventListingId: 'event_listing_sw2dks54k0efb807wanaoayn',
+    eventPoolId: 'event_pool_g4lcyok81h1duqg6alq956lv',
+    startsAt: [ 'D', 1751212800000 ],
+    endsAt: [ 'D', 1751223600000 ],
+    eventListingLocationId: 'event_listing_location_pi9m8uqlaf6n7a0ayfn7ozgs',
+    courseLayoutId: 'XoWR97JmztpHhDx6w',
+    scorecardMessage: 'CTP, holes 3,11,15,18',
+    cutDetails: -5,
+    status: 'finished',
+    roundIndex: 0,
+    frozenLayout: {
+      layoutId: 70773,
+      name: 'Main Layout Long',
+      details: '18 holes with two par 4s',
+      holes: [Array],
+      distance: 3613.840980019253,
+      lengthBin: 'long',
+      notes: -5,
+      difficultyBin: 'challenging',
+      technicalityBin: 'technical'
+    },
+    version: 3,
+    versionBy: 'AjmRtjoQxrsx5HK5R',
+    versionReason: 'set-frozen-layout',
+    roundProgress: { cardsRemaining: 0, percentage: 100, estimatedCompletionTime: -5 },
+    cardGenerationRules: -5,
+    createdAt: [ 'D', 1735336242602 ],
+    updatedAt: [ 'D', 1751222275965 ],
+    deletedAt: -5,
+    isDeleted: false,
+    selectForUpdateKey: 'processEventRoundRankings-e01593ebacbjrg25lxlonbm5'
+  },
+  roundEntryResults: [
+    {
+      _id: 'event_round_entry_zys32sy3o5rwumwqpshzbnt9',
+      bagTagAfter: -5,
+      cardSortOrder: 5,
+      checksum: '3d04eac418ddf9a2fa8111452428c4c5b8006fd495b68a52ead89b9b614fe2c3',
+      courseLayoutId: 'XoWR97JmztpHhDx6w',
+      currentRoundScore: 54,
+      cutInfo: -5,
+      division: 'GEN',
+      dnfInfo: -5,
+      eventCardId: 'event_card_ntw0z05mbnozt2n0o2wxz05i',
+      eventEntryId: 'event_entry_q3wq5dr93xnrcy6r2t7cs0c1',
+      eventEntryIndex: 1,
+      eventEntryState: 'active',
+      eventListingId: 'event_listing_sw2dks54k0efb807wanaoayn',
+      eventPoolId: 'event_pool_g4lcyok81h1duqg6alq956lv',
+      eventRegistrantId: 'event_registrant_kb4envv2fiiccgs0xkvocbdh',
+      eventRoundId: 'event_round_b3kz3lr759lo7bhdc74vg18n',
+      eventScore: 54,
+      flagIso: -5,
+      handicap: -5,
+      handicapRanking: -5,
+      handicapRankingIsTie: true,
+      handicapRelativeRoundScore: -5,
+      handicapTiebreakPosition: -5,
+      holeScores: [Array],
+      isComplete: true,
+      legacyPayout: -5,
+      name: 'Frisbee Thrower',
+      previousHandicapRanking: -5,
+      previousRanking: -5,
+      ranking: 1,
+      rankingIsTie: false,
+      registrantHasMultipleEventEntries: false,
+      relativeEventScore: -2,
+      relativeRoundScore: -2,
+      roundIndex: 0,
+      roundPenalty: -5,
+      roundRating: 218,
+      roundScores: [Array],
+      roundStats: [Object],
+      scorecardEntryUpdatedAt: [Array],
+      startingHoleIndex: 1,
+      startingScoreAdjustment: 0,
+      teeTime: [Array],
+      thruHoleCount: 18,
+      tiebreakPosition: -5,
+      updatedAt: [Array]
+    },
+  ],
+  layout: {
+    _id: 'XoWR97JmztpHhDx6w',
+    layoutId: 70773,
+    courseId: 21039,
+    name: 'Main Layout Long',
+    details: '18 holes with two par 4s',
+    level: -5,
+    type: 'smart',
+    status: 'active',
+    sortIndex: 1922913,
+    hasMap: true,
+    holes: [
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object]
+    ],
+    names: [
+      '1',  '2',  '3',  '4',
+      '5',  '6',  '7',  '8',
+      '9',  '10', '11', '12',
+      '13', '14', '15', '16',
+      '17', '18'
+    ],
+    pars: [
+      3, 3, 3, 3, 3, 3, 4,
+      3, 3, 3, 3, 3, 3, 3,
+      3, 3, 4, 3
+    ],
+    isActive: true,
+    _created_at: [ 'D', 1633355703171 ],
+    _updated_at: [ 'D', 1748989153490 ],
+    distance: 3613.840980019253,
+    floorsAscended: 14,
+    floorsDescended: 13.5,
+    playCount: 10300,
+    playCount30: 733,
+    playCountYear: 3787,
+    stepCount: 4967.5,
+    time: 111.54204999999999,
+    areLayoutSelectionsValid: true,
+    isEliteSeries: -5,
+    isLocked: false,
+    isTemporary: false,
+    selections: {
+      teePositionLabelId: 'ZDin',
+      targetTypeId: 'fKIa',
+      targetPositionLabelId: -5,
+      holes: [Array]
+    },
+    lengthBin: 'long',
+    typicalHoleLengthLowerMeters: 77.743,
+    typicalHoleLengthUpperMeters: 124.83,
+    parRoundRating: 208.75408935546875,
+    activationDate: -5,
+    deactivationDate: -5,
+    holeImagePath: -5,
+    notes: -5,
+    difficultyBin: 'challenging',
+    technicalityBin: 'technical'
+  },
+  registrantDetailLookupByRegistrantId: {
+    event_registrant_dlh68kpic6hpawxi04mgz5cp: {
+      _id: 'event_registrant_dlh68kpic6hpawxi04mgz5cp',
+      teamRegistrantId: -5,
+      type: 'solo_user',
+      name: 'Frisbee Thrower',
+      isNameOverridden: false,
+      registrantUserId: 'vUYtHX8JEr',
+      pdgaNumber: -5,
+      eventListingId: 'event_listing_sw2dks54k0efb807wanaoayn',
+      username: 'DocHyzer',
+      thumbnailImage: 'ab1f9db8bbb41e82048785601d4c59ab_T_Player-20210613_180814.jpg',
+      handicap: -5
+    },
+  },
+  soloRegistrantsLookupByTeamRegistrantId: {
+    null: [
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object]
+    ]
+  },
+  publicRoundPreviewProps: {
+    round: {
+      _id: 'event_round_b3kz3lr759lo7bhdc74vg18n',
+      eventListingId: 'event_listing_sw2dks54k0efb807wanaoayn',
+      eventPoolId: 'event_pool_g4lcyok81h1duqg6alq956lv',
+      startsAt: [Array],
+      endsAt: [Array],
+      eventListingLocationId: 'event_listing_location_pi9m8uqlaf6n7a0ayfn7ozgs',
+      courseLayoutId: 'XoWR97JmztpHhDx6w',
+      scorecardMessage: 'CTP, holes 3,11,15,18',
+      cutDetails: -5,
+      status: 'finished',
+      roundIndex: 0,
+      frozenLayout: [Object],
+      version: 3,
+      versionBy: 'AjmRtjoQxrsx5HK5R',
+      versionReason: 'set-frozen-layout',
+      roundProgress: [Object],
+      cardGenerationRules: -5,
+      createdAt: [Array],
+      updatedAt: [Array],
+      deletedAt: -5,
+      isDeleted: false,
+      selectForUpdateKey: 'processEventRoundRankings-e01593ebacbjrg25lxlonbm5'
+    },
+    pool: {
+      _id: 'event_pool_g4lcyok81h1duqg6alq956lv',
+      eventListingId: 'event_listing_sw2dks54k0efb807wanaoayn',
+      name: 'A',
+      startFormat: 'shotgun',
+      divisions: [Array],
+      cardGenerationRules: [Object],
+      roundCount: 1,
+      version: 1,
+      versionBy: 'vUYtHX8JEr',
+      versionReason: 'initial-creation',
+      createdAt: [Array],
+      updatedAt: [Array],
+      isDeleted: false
+    },
+    course: {
+      id: 'event_listing_location_pi9m8uqlaf6n7a0ayfn7ozgs',
+      type: 'Point',
+      coordinates: [Array],
+      locationType: 'course',
+      courseId: 'St5wcBuuhyBBpey2q',
+      courseName: 'Prickly Pines Disc Golf Course',
+      courseShortId: 'znUs',
+      locationText: 'Elizabeth, CO'
+    },
+    coursePhoto: {
+      _id: 'kty5QgkupRSQ2HbeC',
+      addedByUsername: 'cameronburrow',
+      caption: 'Sunset Point hole 14',
+      fullUrl: 'https://udisc-parse.s3.amazonaws.com/db560c8bea790bba4855bc0f92b4433d_aHK4n7NuOq11sSUK1Oh40gQ3G1QG.jpeg',
+      mobileUrl: 'https://udisc-parse.s3.amazonaws.com/d6471a53aa620b1d95d0e74a3300cc52_m_aHK4n7NuOq11sSUK1Oh40gQ3G1QG.jpg',
+      starCount: -5,
+      takenAt: [Array],
+      thumbnailUrl: 'https://udisc-parse.s3.amazonaws.com/d6471a53aa620b1d95d0e74a3300cc52_t_aHK4n7NuOq11sSUK1Oh40gQ3G1QG.jpg',
+      _p_createdBy: '_User$vUYtHX8JEr'
+    },
+    division: 'GEN',
+    layout: {
+      _id: 'XoWR97JmztpHhDx6w',
+      layoutId: 70773,
+      courseId: 21039,
+      name: 'Main Layout Long',
+      details: '18 holes with two par 4s',
+      level: -5,
+      type: 'smart',
+      status: 'active',
+      sortIndex: 1922913,
+      hasMap: true,
+      holes: [Array],
+      names: [Array],
+      pars: [Array],
+      isActive: true,
+      _created_at: [Array],
+      _updated_at: [Array],
+      distance: 3613.840980019253,
+      floorsAscended: 14,
+      floorsDescended: 13.5,
+      playCount: 10300,
+      playCount30: 733,
+      playCountYear: 3787,
+      stepCount: 4967.5,
+      time: 111.54204999999999,
+      areLayoutSelectionsValid: true,
+      isEliteSeries: -5,
+      isLocked: false,
+      isTemporary: false,
+      selections: [Object],
+      lengthBin: 'long',
+      typicalHoleLengthLowerMeters: 77.743,
+      typicalHoleLengthUpperMeters: 124.83,
+      parRoundRating: 208.75408935546875,
+      activationDate: -5,
+      deactivationDate: -5,
+      holeImagePath: -5,
+      notes: -5,
+      difficultyBin: 'challenging',
+      technicalityBin: 'technical'
+    },
+    progress: { percentage: 100, estimatedCompletionTime: -5 },
+    weather: {
+      coord: [Object],
+      weather: [Array],
+      base: 'stations',
+      main: [Object],
+      visibility: 10000,
+      wind: [Object],
+      clouds: [Object],
+      dt: 1751230676,
+      sys: [Object],
+      timezone: -21600,
+      id: 5421001,
+      name: 'Elizabeth',
+      cod: 200
+    },
+    isSinglePoolEvent: true,
+    existsRegistrantOnCard: true,
+    cardsRemaining: 0,
+    timezone: 'America/Denver'
+  },
+  registrantAvatarsLookup: {
+    '7E8qx9ejRH': -5,
+    '7Y1ww599Mj': '5306bde0a77343bee325967c27621be0_t_player_20230817205306.jpg',
+    '96qTiAtWjf': '2d8b3fa0dff67577c7b68313c6a29110_t_player_20250503T222110.jpg',
+    AudDHJQl1p: '43048739f4654a855b8aa54c742ae027_t_player_20210626121131.jpg',
+    HjXrr2caaN: '6b15ab7e1275a9ce8ee35ba864da1d86_T_Player-20180516_105555-jpg.jpeg',
+    K6fzPBcOzd: '8eb66b8cc969ad343f71c4d9d659cdb9_T_Player-20250331_085543.jpg',
+    KQsSCOOONE: 'c0c5820e7132003e914afad791392ac6_t_player_20250401T154941.jpg',
+    SHvxAI2yzA: '4fe97bc68b5458c4850014b1e6b68ab9_t_player_20241116T233508.jpg',
+    TrEmZFehUX: 'e20ae6053b576dfa79c8c9c95daef430_t_player_20250331T122834.jpg',
+    Ux5svDhVNr: -5,
+    Vl1PlLKp5o: -5,
+    aFTspmTvJS: -5,
+    bkHbgamzPM: -5,
+    fUHTbCPNpG: 'b593b5901310ed8ea936ca6981cf7bb0_t_player_20200826170100.jpg',
+    lSaH1rJJYX: 'cf9c3b591dd9b2330cabe700ee151968_t_player_20250320T203055.jpg',
+    nRWqLaoyQj: '66a36fc1aecd2c8147acc9adb3947d8b_t_player_20250309T211717.jpg',
+    ogLZqoRm5KNcJ7WWT: -5,
+    pb4xoeJuPK: 'f171e15fec32709fbc9195c09effca08_t_player_20230227203813.jpg',
+    ss0I5QpnSS: -5,
+    tW5SJeDWrn: -5,
+    user_ahpm8oo1khzqc6abseg5yjx5: -5,
+    user_mpieoo2xn7yiez8cuflmnne1: -5,
+    vUYtHX8JEr: 'ab1f9db8bbb41e82048785601d4c59ab_T_Player-20210613_180814.jpg',
+    yrBnQqrWgt: '24c3a9f9d8a8038a59c2902556c1cc02_t_player_20250314T212844.jpg'
+  },
+  divisionsWithRegistrants: [ 'S', 'GEN' ],
+  league: {
+    _id: '9sjsSDkurFTCaDExm',
+    name: 'Prickly Pines Course Tags',
+    shortId: 'kPhNcj',
+    seasons: [ [Object] ]
+  },
+  eventListing: {
+    _id: 'event_listing_sw2dks54k0efb807wanaoayn',
+    shortId: 'xARh2n',
+    leagueId: '9sjsSDkurFTCaDExm',
+    legacyEventId: -5,
+    approval: { status: 'approved', approvedOn: [Array] },
+    staff: [ [Object], [Object] ],
+    name: 'Prickly Pines Course Tags - Prickly Pines Course Tags',
+    timezone: 'America/Denver',
+    locations: [ [Object] ],
+    startDate: '2025-06-29',
+    endDate: '2025-06-29',
+    divisions: [ [Object] ],
+    scoring: {
+      type: 'udisc',
+      scorecardStats: 'deferred',
+      startFormat: 'shotgun',
+      playFormat: 'singles',
+      cardCreationStyle: 'players-or-staff',
+      reentryConfig: [Object]
+    },
+    registration: {
+      type: 'external',
+      teamDetails: -5,
+      registrationUrl: -5,
+      registrationOpensAt: -5,
+      registrationClosesAt: -5,
+      registrationCost: -5,
+      fieldSizeDetails: -5
+    }
+  },
+  isEligibleForHandicap: false
+}
+```
+
+</details>
+
+<details>
+<summary>
+<h3>Closer look at HoleScores from each EventRoundEntry result</h3>
+</summary>
+
+
+
+```
+{
+  _id: 'event_round_entry_hhfb6vstlt3dlo7ae7ddm98g',
+  bagTagAfter: -5,
+  cardSortOrder: 3,
+  checksum: 'b1ccee0eb507b3da0295b5173e060493e8bef373d8a1edcdb2cd0c7b6bc097bd',
+  courseLayoutId: 'XoWR97JmztpHhDx6w',
+  currentRoundScore: 66,
+  cutInfo: -5,
+  division: 'GEN',
+  dnfInfo: -5,
+  eventCardId: 'event_card_ge9m7xt7luymsxae3y7131u5',
+  eventEntryId: 'event_entry_qzh62yp68ptm2rjmly3e48r6',
+  eventEntryIndex: 1,
+  eventEntryState: 'active',
+  eventListingId: 'event_listing_sw2dks54k0efb807wanaoayn',
+  eventPoolId: 'event_pool_g4lcyok81h1duqg6alq956lv',
+  eventRegistrantId: 'event_registrant_kiw140ze0qubpnfvphaeombu',
+  eventRoundId: 'event_round_b3kz3lr759lo7bhdc74vg18n',
+  eventScore: 66,
+  flagIso: -5,
+  handicap: -5,
+  handicapRanking: -5,
+  handicapRankingIsTie: true,
+  handicapRelativeRoundScore: -5,
+  handicapTiebreakPosition: -5,
+  holeScores: [
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 0,
+      score: 3,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 1,
+      score: 4,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 0,
+      score: 3,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 2,
+      score: 5,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 2,
+      score: 5,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 1,
+      score: 4,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 1,
+      score: 5,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 0,
+      score: 3,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 0,
+      score: 3,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 0,
+      score: 3,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 1,
+      score: 4,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 0,
+      score: 3,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: -1,
+      score: 2,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 1,
+      score: 4,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 0,
+      score: 3,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 0,
+      score: 3,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 2,
+      score: 6,
+      throws: -5
+    },
+    {
+      type: 'complete',
+      penalty: 0,
+      relativeScore: 0,
+      score: 3,
+      throws: -5
+    }
+  ],
+  isComplete: true,
+  legacyPayout: -5,
+  name: 'Tom Gill',
+  previousHandicapRanking: -5,
+  previousRanking: -5,
+  ranking: 15,
+  rankingIsTie: true,
+  registrantHasMultipleEventEntries: false,
+  relativeEventScore: 10,
+  relativeRoundScore: 10,
+  roundIndex: 0,
+  roundPenalty: -5,
+  roundRating: 150,
+  roundScores: [ 66 ],
+  roundStats: {
+    roundSummary: {
+      fairway: -5,
+      gir: -5,
+      c1Putting: -5,
+      c1xPutting: -5,
+      c2Putting: -5,
+      scramble: -5,
+      penalties: { ob: 0 },
+      throwInDistance: -5
+    },
+    holeStats: [
+      {}, {}, {}, {}, {}, {}, {},
+      {}, {}, {}, {}, {}, {}, {},
+      {}, {}, {}, {}
+    ]
+  },
+  scorecardEntryUpdatedAt: [ 'D', 1751221498132 ],
+  startingHoleIndex: 13,
+  startingScoreAdjustment: -5,
+  teeTime: [ 'D', 1751212998304 ],
+  thruHoleCount: 18,
+  tiebreakPosition: -5,
+  updatedAt: [ 'D', 1751221934172 ]
+}
+```
+</details>
+
+
+
 
 ## License
 
