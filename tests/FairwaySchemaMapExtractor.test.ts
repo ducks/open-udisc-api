@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { UDiscSchemaMapExtractor } from '../src/udisc/UDiscSchemaExtractor';
+import { FairwaySchemaMapExtractor } from '../src/fairway/FairwaySchemaMapExtractor';
 
 import json from './mocks/courses/pier-park-GN0G.json';
 
-describe('UDiscSchemaMapExtractor', () => {
+describe('FairwaySchemaMapExtractor', () => {
   it('extracts a schema map from a route key and raw array', () => {
 
-    const schema = UDiscSchemaMapExtractor.extract(json, 'routes/courses/$slug');
+    const schema = FairwaySchemaMapExtractor.extract(json, 'routes/courses/$slug');
 
     expect(schema).toEqual({
       slug: 'pier-park-GN0G',
@@ -49,7 +49,7 @@ describe('UDiscSchemaMapExtractor', () => {
     const raw = ['some', 'other', 'keys'];
 
     expect(() =>
-      UDiscSchemaMapExtractor.extract(raw, 'routes/courses/$slug')
+      FairwaySchemaMapExtractor.extract(raw, 'routes/courses/$slug')
     ).toThrow('Could not resolve schema map schema for route routes/courses/$slug');
   });
 
@@ -57,7 +57,7 @@ describe('UDiscSchemaMapExtractor', () => {
     const raw = ['routes/courses/$slug', 'not an object'];
 
     expect(() =>
-      UDiscSchemaMapExtractor.extract(raw, 'routes/courses/$slug')
+      FairwaySchemaMapExtractor.extract(raw, 'routes/courses/$slug')
     ).toThrow('Could not resolve schema map schema for route routes/courses/$slug');
   });
 });

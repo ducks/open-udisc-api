@@ -4,7 +4,7 @@ import {
   it,
 } from 'vitest';
 
-import { UDiscUtils } from '../src/udisc/UDiscUtils';
+import { FairwayUtils } from '../src/fairway/FairwayUtils';
 import { formatSearchCourses, formatSearchEvents } from '../src/formatters/search';
 
 import mockCourses from './mocks/search/search-milo.json';
@@ -19,7 +19,7 @@ const events: SearchResultEvent[] = formatSearchEvents(mockEvents);
 describe('searchCourses', () => {
   it('includes slugified name and shortId', () => {
     for (const course of courses) {
-      const expectedSlug = `${UDiscUtils.slugify(course.name)}-${course.shortId}`;
+      const expectedSlug = `${FairwayUtils.slugify(course.name)}-${course.shortId}`;
 
       expect(course.slug).toBe(expectedSlug);
     }
@@ -29,7 +29,7 @@ describe('searchCourses', () => {
 describe('searchEvents', () => {
   it('includes slugified name and shortId', () => {
     for (const event of events) {
-      const expectedSlug = `${UDiscUtils.slugify(event.name)}-${event.shortId}`;
+      const expectedSlug = `${FairwayUtils.slugify(event.name)}-${event.shortId}`;
 
       expect(event.slug).toBe(expectedSlug);
     }

@@ -1,5 +1,5 @@
 {
-  "name": "open-udisc-api",
+  "name": "fairway-client",
   "version": "20250606",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

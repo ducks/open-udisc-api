@@ -6,13 +6,13 @@ import {
   it,
 } from 'vitest';
 
-import { UDiscUtils } from '../src/udisc/UDiscUtils';
+import { FairwayUtils } from '../src/fairway/FairwayUtils';
 
 const brokenJson = readFileSync('./tests/mocks/courses/courses.json', 'utf-8');
 
-const json: unknown[] = UDiscUtils.extractJsonChunks(brokenJson).flat();
+const json: unknown[] = FairwayUtils.extractJsonChunks(brokenJson).flat();
 
-const courses = UDiscUtils.extractCourses(json);
+const courses = FairwayUtils.extractCourses(json);
 
 describe('courses', () => {
  it('contains valid course-like objects', () => {
@@ -37,7 +37,7 @@ describe('courses', () => {
 
   it('includes slugified name and shortId', () => {
     for (const course of courses) {
-      const expectedSlug = `${UDiscUtils.slugify(course.name)}-${course.shortId}`;
+      const expectedSlug = `${FairwayUtils.slugify(course.name)}-${course.shortId}`;
 
       expect(course.slug).toBe(expectedSlug);
     }

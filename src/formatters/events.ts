@@ -1,11 +1,11 @@
 import { HydratedEvent } from '../events/models';
-import { UDiscSchemaMapExtractor } from '../udisc/UDiscSchemaMapExtractor';
-import { UDiscUtils } from '../udisc/UDiscUtils';
+import { FairwaySchemaMapExtractor } from '../fairway/FairwaySchemaMapExtractor';
+import { FairwayUtils } from '../fairway/FairwayUtils';
 
 export function formatEvents(data: unknown[]): HydratedEvent[] {
-  const schemaMap = UDiscSchemaMapExtractor.extract(data, 'routes/events/index');
+  const schemaMap = FairwaySchemaMapExtractor.extract(data, 'routes/events/index');
 
-  const events: HydratedEvent[] = UDiscUtils.hydrateDeep<HydratedEvent[]>(schemaMap, data);
+  const events: HydratedEvent[] = FairwayUtils.hydrateDeep<HydratedEvent[]>(schemaMap, data);
 
   return events.events;
 }

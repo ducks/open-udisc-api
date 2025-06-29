@@ -1,6 +1,6 @@
 import { SchemaMap } from '../models';
 
-export class UDiscSchemaMapExtractor {
+export class FairwaySchemaMapExtractor {
   static extract<T = SchemaMap>(
     data: unknown[],
     routeKey: string
